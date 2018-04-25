@@ -18,7 +18,7 @@ COLOR_RESET="\033[0m"
 function git_color {
     local git_status="$(git status 2> /dev/null)"
 
-    if [[ ! $git_status =~ "working tree clean" ]]; then
+    if [[ ! $git_status =~ "working directory clean" ]]; then
         echo -e $COLOR_RED
     elif [[ $git_status =~ "nothing to commit" ]]; then
         echo -e $COLOR_GREEN
