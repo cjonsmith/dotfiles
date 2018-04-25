@@ -1,5 +1,8 @@
-set -o vi
 export NOTES_HOME=~/notes
+
+# Aliases
+alias cdn='cd $NOTES_HOME'
+alias sourcerc='source ~/.bashrc'
 
 ## Start PS1 Changes
 # Colors for PS1
