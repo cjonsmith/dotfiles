@@ -6,7 +6,7 @@ Configs and dotfiles
 ```bash
 cd
 git clone --separate-git-dir=$HOME/.dotfiles https://github.com/cjonsmith/dotfiles.git dotfiles-tmp
-rsync --recursive --verbose --exclude '.git' dotfiles-tmp/.* $HOME/
+rsync --recursive --verbose --exclude '.git' --exclude 'README.md' dotfiles-tmp/.* $HOME/
 rm --recursive dotfiles-tmp
 source .bashrc
 dotfiles config status.showUntrackedFiles no
