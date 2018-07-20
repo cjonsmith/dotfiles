@@ -1,34 +1,42 @@
-syntax on
-set ruler
-set showcmd
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set number
-set relativenumber
-set autoindent
+" vimrc - cjonsmith
+set nocompatible
+call pathogen#infect()
+filetype on
+filetype plugin on
+filetype indent on
 
-" Set tab styles for different file types
-" TODO: Do multiple commands for autocmd
-autocmd BufNewFile,BufRead *.js,*.jsx,*.ts,*.tsx set tabstop=2
-autocmd BufNewFile,BufRead *.js,*.jsx,*.ts,*.tsx set shiftwidth=2
-autocmd BufNewFile,BufRead *.js,*.jsx,*.ts,*.tsx set expandtab
-autocmd BufNewFile,BufRead *.py set tabstop=4
-autocmd BufNewFile,BufRead *.py set shiftwidth=4
-autocmd BufNewFile,BufRead *.py set expandtab
+" -- Display
+set title           " Update the title of the window
+set relativenumber  " Display relative line numbers
+set ruler           " Display cursor position
+set wrap            " Word-wrap when too lines are too long
 
-" Set 'keywordprg' to be relevant documentation for different filetypes
-autocmd FileType git setlocal keywordprg=git\ show
-autocmd FileType vim setlocal keywordprg=:help
-autocmd FileType python setlocal keywordprg=pydoc
+set scrolloff=3     " Display three lines around your cursor
 
-" Add all downward directories to our path
-set path+=**
+" -- Search
+set smartcase       " Ignore case if all lowercase
 
-" Add window for fuzzy finding tab completion
-set wildmenu
+set incsearch       " Highlight search results while typing
+set hlsearch        " Highlight other instances of searched phrase
 
-" Netrw file browser edits
-let g:netrw_banner=0    " remove netrw banner
-let g:netrw_keepdir=0   " current viewing dir is current working dir
+" No beeping!
+set belloff=all
+
+" Useful backspaces
+set backspace=indent,eol,start
+
+" Hide backup file instead of abandoning
+set hidden
+
+" Use light version of Solarized if using GUI
+if has ('gui_running')
+	set background=light
+	colorscheme solarized
+endif
+
+" Fonts
+set guifont=DejaVu\ Sans\ Mono\ 11
+
+" Autostart NERDTree
+autocmd vimenter * NERDTree
 
