@@ -35,7 +35,11 @@ if has ('gui_running')
 endif
 
 " Fonts
-set guifont=DejaVu\ Sans\ Mono\ 11
+if has ('gui_macvim')
+	set guifont=Monaco:h13
+else
+	set guifont=DejaVu\ Sans\ Mono\ 11
+endif
 
 " Autostart NERDTree
 autocmd vimenter * NERDTree
