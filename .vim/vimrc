@@ -48,3 +48,6 @@ endif
 " Autostart NERDTree
 autocmd vimenter * NERDTree
 
+" -- Remaps/bindings
+nnoremap \ :nohls<Enter> " Turn off highlight after search with \
+
