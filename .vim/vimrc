@@ -34,7 +34,7 @@ set hidden
 
 " Use light version of Solarized if using GUI
 if has ('gui_running')
-	set background=light
+	set background=dark
 	colorscheme solarized
 endif
 
