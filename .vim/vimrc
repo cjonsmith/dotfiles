@@ -17,6 +17,20 @@ set wrap            " Word-wrap when too lines are too long
 
 set scrolloff=3     " Display three lines around your cursor
 
+" -- Filetype corrections
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
+
+" -- Spaces and Tabs
+set tabstop=4       " Use a tab-width of 4 characters/spaces
+set shiftwidth=4    " An indent is 4 spaces wide
+set softtabstop=4   " Number of spaces to use when tab is pressed
+
+" Specific filetypes
+autocmd FileType python set expandtab
+autocmd FileType javascript,typescript set tabstop=2
+autocmd FileType javascript,typescript set shiftwidth=2
+autocmd FileType javascript,typescript set softtabstop=2
+
 " -- Search
 set smartcase       " Ignore case if all lowercase
 
