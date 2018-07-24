@@ -32,6 +32,7 @@ autocmd FileType javascript,typescript set shiftwidth=2
 autocmd FileType javascript,typescript set softtabstop=2
 
 " -- Search
+set ignorecase      " Ignore case when searching
 set smartcase       " Ignore case if all lowercase
 
 set incsearch       " Highlight search results while typing
