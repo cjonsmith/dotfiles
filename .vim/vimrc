@@ -62,4 +62,9 @@ endif
 
 " -- Remaps/bindings
 nnoremap \ :nohls<Enter> " Turn off highlight after search with \
+nnoremap <Leader>b :ls<CR>:b<Space>
+map <C-n> :NERDTreeToggle<CR>
 
+" Start NERDTree automatically if opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
