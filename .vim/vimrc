@@ -60,9 +60,6 @@ else
 	set guifont=DejaVu\ Sans\ Mono\ 11
 endif
 
-" Autostart NERDTree
-autocmd vimenter * NERDTree
-
 " -- Remaps/bindings
 nnoremap \ :nohls<Enter> " Turn off highlight after search with \
 
