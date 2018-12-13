@@ -8,6 +8,9 @@ export PATH="$PATH:$HOME/Workspace/appcenter/diagnostics/utilities/bin"
 export NOTES_HOME="$HOME/notes"
 export APPCENTER=~/Workspace/appcenter
 
+# Source autocompletes
+source ~/.bash_autocomplete
+
 ## Start PS1 Changes
 # Colors for PS1
 COLOR_WHITE="\033[38;5;15m"
