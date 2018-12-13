@@ -1,4 +1,5 @@
 # Update path to local scripts
+export PATH="/snap/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/Workspace/appcenter/diagnostics/utilities/bin"
@@ -65,3 +66,4 @@ function acclean {
 	git clean -xdf
 	cd $current_directory
 }
+
