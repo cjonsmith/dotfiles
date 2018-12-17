@@ -1,15 +1,19 @@
-# Update path to local scripts
+# Variables
+export NOTES_HOME=$HOME/notes
+export APPCENTER=$HOME/Workspace/appcenter
+export EDITOR=/usr/bin/vim
+
+# Path updates
 export PATH="/snap/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/Workspace/appcenter/diagnostics/utilities/bin"
-
-# Add system variable for notes directory
-export NOTES_HOME="$HOME/notes"
-export APPCENTER=~/Workspace/appcenter
+export PATH="$PATH:$APPCENTER/diagnostics/utilities/bin"
 
 source $HOME/.bash_autocomplete	# Autocompletes
 source $HOME/.ps1				# PS1 (prompt)
 source $HOME/.bash_aliases		# Aliases
 source $HOME/.bash_functions	# Functions
 
+touch $HOME/.bash_hidden && source $HOME/.bash_hidden
+
+stty stop ^J # Bind `stop` to CTRL-J so forward-search history is available
