@@ -24,6 +24,7 @@ updateDock() {
     updateWebBrowerDock
     command -v code > /dev/null && addCodeToDock
     command -v spotify > /dev/null && addSpotifyToDock
+    removeUnusedPrograms
 }
 
 updateWebBrowerDock() {
@@ -42,6 +43,12 @@ addCodeToDock() {
 addSpotifyToDock() {
     local spotifyLauncher=spotify.dockitem
     printf "[PlankDockItemPreferences]\nLauncher=file:///usr/share/applications/spotify.desktop\n" > $plankLaunchers/$spotifyLauncher
+}
+
+removeUnusedProgramLaunchers() {
+    rm $plankLaunchers/io.elementary.music.dockitem
+    rm $plankLaunchers/io.elementary.videos.dockitem
+    rm $plankLaunchers/io.elementary.photos.dockitem
 }
 
 apt -y install software-properties-common
