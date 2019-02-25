@@ -1,12 +1,12 @@
-[submodule ".config/vim/bundle/nerdtree"]
-	path = .config/vim/bundle/nerdtree
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule ".config/vim/bundle/solarized"]
-	path = .config/vim/bundle/solarized
+[submodule ".vim/bundle/solarized"]
+	path = .vim/bundle/solarized
 	url = https://github.com/altercation/vim-colors-solarized
-[submodule ".config/vim/bundle/pathogen"]
-	path = .config/vim/bundle/pathogen
+[submodule ".vim/bundle/pathogen"]
+	path = .vim/bundle/pathogen
 	url = https://github.com/tpope/vim-pathogen
-[submodule ".config/vim/bundle/vim-fish"]
-	path = .config/vim/bundle/vim-fish
+[submodule ".vim/bundle/vim-fish"]
+	path = .vim/bundle/vim-fish
 	url = https://github.com/dag/vim-fish
