@@ -19,6 +19,12 @@ installSpotify() {
     apt -y install spotify-client
 }
 
+installChrome() {
+    curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+    add-apt-repository "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+    apt update && apt -y install google-chrome-stable
+}
+
 updateDock() {
     local plankLaunchers=$HOME/.config/plank/dock1/launchers
     updateWebBrowerDock
@@ -65,6 +71,7 @@ apt -y install $programs && apt -y remove $removePrograms  # Only remove program
 installDocker
 installCode
 installSpotify
+installChrome
 
 # Add launchers to plank dock for elementary users
 [ $(lsb_release -is) = "elementary" ] && updateDock
