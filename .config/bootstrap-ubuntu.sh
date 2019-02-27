@@ -25,6 +25,12 @@ installChrome() {
     apt update && apt -y install google-chrome-stable
 }
 
+installMerge() {
+    curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    apt update && apt -y install sublime-merge
+}
+
 updateDock() {
     local plankLaunchers=$HOME/.config/plank/dock1/launchers
     updateWebBrowerDock
