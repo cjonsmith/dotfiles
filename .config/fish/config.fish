@@ -10,3 +10,10 @@ if status --is-login
 end
 
 abbr dotfiles 'git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+
+# Config files
+abbr cf 'cd $HOME/.config ;and ls'
+abbr cff 'cd $HOME/.config/fish ;and ls'
+
+# Directory movements
+abbr ws 'cd $HOME/Workspace'
