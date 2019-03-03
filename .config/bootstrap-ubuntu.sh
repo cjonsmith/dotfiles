@@ -36,7 +36,7 @@ updateDock() {
     updateWebBrowerDock
     command -v code > /dev/null && addCodeToDock
     command -v spotify > /dev/null && addSpotifyToDock
-    removeUnusedPrograms
+    removeUnusedProgramLaunchers
 }
 
 updateWebBrowerDock() {
