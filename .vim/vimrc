@@ -26,7 +26,7 @@ set shiftwidth=4    " An indent is 4 spaces wide
 set softtabstop=4   " Number of spaces to use when tab is pressed
 
 " Specific filetypes
-autocmd FileType python set expandtab
+autocmd FileType python,haskell set expandtab
 autocmd FileType javascript,typescript set tabstop=2
 autocmd FileType javascript,typescript set shiftwidth=2
 autocmd FileType javascript,typescript set softtabstop=2
