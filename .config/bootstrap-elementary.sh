@@ -102,7 +102,9 @@ removePrograms=$(cat $HOME/.config/remove)
 apt -y install $programs && apt -y remove $removePrograms  # Only remove programs when replacements installed successfully
 
 snaps=$(cat $HOME/.config/snaps)
-snap install $snaps
+for snap in $snaps; do
+    snap install $snap
+done
 
 getMicrosoftGpgKey # Needed for code and azure cli
 
