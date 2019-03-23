@@ -97,6 +97,9 @@ programs=$(cat $HOME/.config/programs)
 removePrograms=$(cat $HOME/.config/remove)
 apt -y install $programs && apt -y remove $removePrograms  # Only remove programs when replacements installed successfully
 
+snaps=$(cat $HOME/.config/snaps)
+snap install $snaps
+
 getMicrosoftGpgKey # Needed for code and azure cli
 
 # Adhoc installs; comment out lines for programs you do not want
