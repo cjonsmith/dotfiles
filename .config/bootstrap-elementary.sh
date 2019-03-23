@@ -49,6 +49,10 @@ installKubectl() {
     apt-get update && apt-get install -y kubectl
 }
 
+installNvm() {
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+}
+
 updateDock() {
     local plankLaunchers=$HOME/.config/plank/dock1/launchers
     updateWebBrowerDock
@@ -110,9 +114,7 @@ installChrome
 installMerge
 installAzureCli
 installKubectl
+installNvm
 
 # Add launchers to plank dock for elementary users
 [ $(lsb_release -is) = "elementary" ] && updateDock
-
-# Comment this line out if you do not want to use fish as your default shell
-command -v fish > /dev/null && chsh -s $(which fish)
