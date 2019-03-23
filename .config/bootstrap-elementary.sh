@@ -14,10 +14,14 @@ installDocker() {
 }
 
 installCode() {
-    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-    install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
     add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
     apt update && apt -y install code
+}
+
+installAzureCli() {
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bionic main" | \
+        sudo tee /etc/apt/sources.list.d/azure-cli.list
+    apt update && apt -y install azure-cli
 }
 
 installSpotify() {
@@ -71,6 +75,12 @@ removeUnusedProgramLaunchers() {
     rm $plankLaunchers/io.elementary.photos.dockitem
 }
 
+getMicrosoftGpgKey() {
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+    rm microsoft.gpg
+}
+
 apt -y install software-properties-common
 
 ppas=$(cat $HOME/.config/ppas)
@@ -81,12 +91,15 @@ programs=$(cat $HOME/.config/programs)
 removePrograms=$(cat $HOME/.config/remove)
 apt -y install $programs && apt -y remove $removePrograms  # Only remove programs when replacements installed successfully
 
+getMicrosoftGpgKey # Needed for code and azure cli
+
 # Adhoc installs; comment out lines for programs you do not want
 installDocker
 installCode
 installSpotify
 installChrome
 installMerge
+installAzureCli
 
 # Add launchers to plank dock for elementary users
 [ $(lsb_release -is) = "elementary" ] && updateDock
