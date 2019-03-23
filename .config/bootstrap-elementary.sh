@@ -43,6 +43,12 @@ installMerge() {
     apt update && apt -y install sublime-merge
 }
 
+installKubectl() {
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+    apt-get update && apt-get install -y kubectl
+}
+
 updateDock() {
     local plankLaunchers=$HOME/.config/plank/dock1/launchers
     updateWebBrowerDock
@@ -100,6 +106,7 @@ installSpotify
 installChrome
 installMerge
 installAzureCli
+installKubectl
 
 # Add launchers to plank dock for elementary users
 [ $(lsb_release -is) = "elementary" ] && updateDock
