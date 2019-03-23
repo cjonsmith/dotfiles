@@ -1,6 +1,6 @@
 #!/bin/sh
 # Note: this script is not idempotent, and running it more than once will cause the manually added repositories
-# (docker, code, spotify, etc) to be added to your /etc/apt/sources.list and /etc/apt/sources.list.d. You will notice
+# (code and chrome namely) to be added to your /etc/apt/sources.list and /etc/apt/sources.list.d. You will notice
 # warning messages when running any `apt` command telling you wher the duplicate repositories are defined. A temporary
 # fix would be to comment the reported lines in /etc/apt/sources.list out. Making this script itempotent is something
 # that will be worked on in the future.
