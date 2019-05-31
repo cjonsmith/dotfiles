@@ -2,7 +2,8 @@ fish_vi_key_bindings
 
 if status --is-login
 	# Path updates
-	set -x PATH $PATH ~/bin
+	set -x PATH $PATH $HOME/bin
+	set -x PATH $PATH $HOME/Software/depot_tools
 
 	# Variables
 	set -x NOTES_HOME $HOME/notes
@@ -14,6 +15,8 @@ if status --is-login
 end
 
 abbr dotfiles 'git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+abbr k        'kubectl'
+abbr open     'xdg-open'
 
 # Config files
 abbr cf  'cd $HOME/.config ;and ls'
@@ -28,4 +31,6 @@ abbr D   'cd $HOME/Downloads ;and ls'
 abbr n   'cd $NOTES_HOME ;and ls'
 abbr p   'cd $HOME/Pictures ;and ls'
 abbr bgs 'cd $HOME/Pictures/Backgrounds ;and ls'
+abbr ac  'cd $APPCENTER && ls'
+abbr s   'cd $HOME/Workspace/secrets ;and ls'
 

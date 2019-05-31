@@ -8,6 +8,7 @@ export PATH="/snap/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$APPCENTER/diagnostics/utilities/bin"
+export PATH="$PATH:$HOME/Software/depot_tools"
 
 source $HOME/.bash_autocomplete	# Autocompletes
 source $HOME/.ps1				# PS1 (prompt)
