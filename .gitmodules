@@ -10,3 +10,6 @@
 [submodule ".vim/bundle/vim-fish"]
 	path = .vim/bundle/vim-fish
 	url = https://github.com/dag/vim-fish
+[submodule ".vim/bundle/vim-meson"]
+	path = .vim/bundle/vim-meson
+	url = https://github.com/matze/vim-meson

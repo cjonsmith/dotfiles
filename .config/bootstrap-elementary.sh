@@ -76,8 +76,13 @@ add-apt-repository -y $ppas
 apt update
 
 programs=$(cat $HOME/.config/programs)
-removePrograms=$(cat $HOME/.config/remove)
-apt -y install $programs && apt -y remove $removePrograms  # Only remove programs when replacements installed successfully
+apt -y install $programs
+
+if [ -f $HOME/.config/remove ]; then
+	removePrograms=$(cat $HOME/.config/remove)
+	apt -y remove $removePrograms
+fi
+
 
 # Adhoc installs; comment out lines for programs you do not want
 installDocker
