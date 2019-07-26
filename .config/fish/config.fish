@@ -4,10 +4,18 @@ if status --is-login
 	# Path updates
 	set -gx PATH $PATH $HOME/bin
 	set -gx PATH $PATH $HOME/Software/depot_tools
+	set -gx PATH $PATH $HOME/.cargo/bin
+
+	set -gx ANDROID_HOME $HOME/Library/Android/sdk
+	set -gx PATH $PATH $ANDROID_HOME/emulator
+	set -gx PATH $PATH $ANDROID_HOME/tools
+	set -gx PATH $PATH $ANDROID_HOME/tools/bin
+	set -gx PATH $PATH $ANDROID_HOME/platform-tools
 
 	# Variables
 	set -gx NOTES_HOME $HOME/notes
 	set -gx EDITOR /usr/bin/vim
+	set -gx APPCENTER $HOME/Workspace/work/appcenter
 
 	if test -z "$DISPLAY" -a $XDG_VTNR = 1
 		exec startx -- -keeptty
@@ -17,12 +25,20 @@ end
 abbr dotfiles 'git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 abbr k        'kubectl'
 abbr open     'xdg-open'
+abbr dcb      '~/Workspace/work/appcenter/dockercompose/build.ps1'
+abbr dcr      '~/Workspace/work/appcenter/dockercompose/restart.ps1'
+abbr dct      '~/Workspace/work/appcenter/dockercompose/tests.ps1'
+abbr dcf      '~/Workspace/work/appcenter/dockercompose/functional.ps1'
+abbr dcps     '~/Workspace/work/appcenter/dockercompose/ps.ps1'
+abbr dcc      '~/Workspace/work/appcenter/dockercompose/clean.ps1'
+abbr dcs      '~/Workspace/work/appcenter/dockercompose/stop.ps1'
 
 # Config files
 abbr cf  'cd $HOME/.config ;and ls'
 abbr cff 'cd $HOME/.config/fish ;and ls'
 abbr cfm 'cd $HOME/.xmonad ;and ls'
 abbr cfv 'cd $HOME/.vim ;and ls'
+abbr cfb 'cd $HOME/.vim/bundle ;and ls'
 
 # Directory movements
 abbr ws  'cd $HOME/Workspace ;and ls'
