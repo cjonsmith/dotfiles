@@ -2,12 +2,12 @@ fish_vi_key_bindings
 
 if status --is-login
 	# Path updates
-	set -x PATH $PATH $HOME/bin
-	set -x PATH $PATH $HOME/Software/depot_tools
+	set -gx PATH $PATH $HOME/bin
+	set -gx PATH $PATH $HOME/Software/depot_tools
 
 	# Variables
-	set -x NOTES_HOME $HOME/notes
-	set -x EDITOR /usr/bin/vim
+	set -gx NOTES_HOME $HOME/notes
+	set -gx EDITOR /usr/bin/vim
 
 	if test -z "$DISPLAY" -a $XDG_VTNR = 1
 		exec startx -- -keeptty
