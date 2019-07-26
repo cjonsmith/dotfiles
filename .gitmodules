@@ -13,3 +13,9 @@
 [submodule ".vim/bundle/vim-meson"]
 	path = .vim/bundle/vim-meson
 	url = https://github.com/matze/vim-meson
+[submodule ".vim/bundle/ale"]
+	path = .vim/bundle/ale
+	url = https://github.com/w0rp/ale.git
+[submodule ".vim/bundle/jedi-vim"]
+	path = .vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
