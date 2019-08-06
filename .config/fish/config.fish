@@ -16,6 +16,8 @@ if status --is-login
 	set -gx NOTES_HOME $HOME/notes
 	set -gx EDITOR /usr/bin/vim
 	set -gx APPCENTER $HOME/Workspace/work/appcenter
+	set -gx BROWSER firefox
+	set -gx ENVIRONMENTS $HOME/Environments
 
 	if test -z "$DISPLAY" -a $XDG_VTNR = 1
 		exec startx -- -keeptty
