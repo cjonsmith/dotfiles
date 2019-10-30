@@ -6,6 +6,8 @@ if status --is-login
 	set -gx EDITOR /usr/bin/vim
 	set -gx APPCENTER $HOME/Workspace/work/appcenter
 	set -gx ANDROID_HOME $HOME/Library/Android/sdk
+	set -gx BROWSER firefox
+	set -gx ENVIRONMENTS $HOME/Environments
 
 	# Path updates
 	set -gx PATH $PATH $HOME/bin
@@ -16,7 +18,6 @@ if status --is-login
 	set -gx PATH $PATH $ANDROID_HOME/tools
 	set -gx PATH $PATH $ANDROID_HOME/tools/bin
 	set -gx PATH $PATH $ANDROID_HOME/platform-tools
-
 
 	if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
 		exec startx -- -keeptty
