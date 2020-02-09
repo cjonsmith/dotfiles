@@ -1,11 +1,9 @@
 vim
-neovim
 firefox
 fish
 elementary-tweaks
 curl
 jq
-nodejs
 xclip
 htop
 ffmpeg
@@ -14,6 +12,10 @@ com.github.donadigo.eddy
 com.github.artemanufrij.screencast
 com.github.philip-scott.notes-up
 com.github.cassidyjames.ideogram
-com.github.tkashkin.github
+com.github.tkashkin.gamehub
 youtube-dl
 steam
+gstreamer1.0-plugins-bad
+gnutls-bin
+gcc
+make

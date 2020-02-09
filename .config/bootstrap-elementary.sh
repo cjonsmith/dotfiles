@@ -19,10 +19,9 @@ installCode() {
 }
 
 installSpotify() {
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+    curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
     add-apt-repository "deb http://repository.spotify.com stable non-free"
-    apt update
-    apt -y install spotify-client
+    apt update && apt -y install spotify-client
 }
 
 installChrome() {
@@ -39,10 +38,10 @@ installMerge() {
 
 updateDock() {
     local plankLaunchers=$HOME/.config/plank/dock1/launchers
-    updateWebBrowerDock
+    # updateWebBrowerDock
     command -v code > /dev/null && addCodeToDock
-    command -v spotify > /dev/null && addSpotifyToDock
-    removeUnusedProgramLaunchers
+    # command -v spotify > /dev/null && addSpotifyToDock
+    # removeUnusedProgramLaunchers
 }
 
 updateWebBrowerDock() {
@@ -78,17 +77,18 @@ apt update
 programs=$(cat $HOME/.config/programs)
 apt -y install $programs
 
-if [ -f $HOME/.config/remove ]; then
-	removePrograms=$(cat $HOME/.config/remove)
-	apt -y remove $removePrograms
-fi
+# if [ -f $HOME/.config/remove ]; then
+	# removePrograms=$(cat $HOME/.config/remove)
+	# apt -y remove $removePrograms
+# fi
 
 
 # Adhoc installs; comment out lines for programs you do not want
-installDocker
+# installDocker
 installCode
 installSpotify
-installChrome
+installMerge
+# installChrome
 
 # Add launchers to plank dock for elementary users
 [ $(lsb_release -is) = "elementary" ] && updateDock
