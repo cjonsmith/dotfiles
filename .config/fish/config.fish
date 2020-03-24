@@ -54,3 +54,4 @@ abbr ac  'cd $APPCENTER ;and ls'
 abbr s   'cd $HOME/Workspace/secrets ;and ls'
 abbr so  'cd $HOME/Software ;and ls'
 
+status --is-interactive; and . (rbenv init -|psub)

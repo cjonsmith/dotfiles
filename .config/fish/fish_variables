@@ -15,6 +15,7 @@ SETUVAR _fish_abbr_cff:cd\x20\x24HOME/\x2econfig/fish\x20\x3band\x20ls
 SETUVAR _fish_abbr_cfff:cd\x20\x24HOME/\x2econfig/fish/functions\x20\x3band\x20ls
 SETUVAR _fish_abbr_cfm:cd\x20\x24HOME/\x2exmonad\x20\x3band\x20ls
 SETUVAR _fish_abbr_cfv:cd\x20\x24HOME/\x2evim\x20\x3band\x20ls
+SETUVAR _fish_abbr_cptest:/Users/camesm/Workspace/work/code\x2dpush/cli/bin/script/cli\x2ejs
 SETUVAR _fish_abbr_d:cd\x20\x24HOME/Documents\x20\x3band\x20ls
 SETUVAR _fish_abbr_dcb:\x7e/Workspace/work/appcenter/dockercompose/build\x2eps1
 SETUVAR _fish_abbr_dcc:\x7e/Workspace/work/appcenter/dockercompose/clean\x2eps1
@@ -51,6 +52,7 @@ SETUVAR fish_color_quote:F1FA8C
 SETUVAR fish_color_redirection:8BE9FD
 SETUVAR fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
+SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
 SETUVAR fish_greeting:Welcome\x20to\x20fish\x2c\x20the\x20friendly\x20interactive\x20shell
