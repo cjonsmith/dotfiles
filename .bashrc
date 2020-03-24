@@ -20,5 +20,8 @@ touch $HOME/.bash_hidden && source $HOME/.bash_hidden
 stty stop ^J # Bind `stop` to CTRL-J so forward-search history is available
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ -d $NVM_DIR ]; then
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -10,6 +10,8 @@ if status --is-login
 	set -gx ENVIRONMENTS $HOME/Environments
 
 	# Path updates
+	set -gx PATH $HOME/.rbenv/bin $PATH
+	set -gx PATH $PATH /snap/bin
 	set -gx PATH $PATH $HOME/bin
 	set -gx PATH $PATH $APPCENTER/diagnostics/utilities/bin
 	set -gx PATH $PATH $HOME/Software/depot_tools
@@ -22,7 +24,15 @@ if status --is-login
 	if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
 		exec startx -- -keeptty
 	end
+
+	if not functions -q fisher
+		set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+		curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+		fish -c fisher
+	end
 end
+
+status --is-interactive; and source (rbenv init -|psub)
 
 abbr dotfiles 'git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 abbr k        'kubectl'
