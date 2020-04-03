@@ -1,9 +1,48 @@
-#!/usr/bin/env sh
-dotfiles_dir=$(basedir "$0")
-rsync --recursive --exclude '.git' "$dotfiles_dir/*" "$HOME"
-ln -sf "$HOME/.config/vim/vimrc" "$HOME/.vimrc"
-# shellcheck source=./.bashrc
-. "$HOME/.bashrc"
-dotfiles config status.showUntrackedFiles no
-dotfiles submodule update --init
+#!/usr/bin/env bash
+#/ bootstrap - Used to setup my dotfiles on a new machine.
+#/
+#/ Usage:
+#/   bootstrap
+set -e
 
+dotfiles_dir="$(cd "$(dirname $0)" && pwd)"
+overwrites="$dotfiles_dir/overwrites"
+[ ! -d "$overwrites" ] && mkdir "$overwrites"
+
+perform_safe_link() {
+    local src=$1 dest=$2
+    if [ -e "$dest" ]; then
+        if [ -L "$dest" ] && [ "$(readlink $dest)" = "$src" ]; then
+            echo "  $dest is already symlinked to $src; skipping."
+        else
+            echo "  $dest already exists; moving to $overwrites for manual cleanup."
+            mv "$dest" "$overwrites"
+        fi
+        return
+    fi
+
+    ln -s $src $dest
+}
+
+for dotfile in $(find "$dotfiles_dir" -mindepth 1 -maxdepth 1 ! -path '*.git*' ! -path "*$(basename $0)" ! -path "*$(basename $overwrites)"); do
+    dotfile_basename="$(basename $dotfile)"
+    if [[ "$dotfile_basename" =~ ^\. ]]; then
+        echo "$dotfile is a hidden file; symlinking to $HOME"
+        dest="$HOME/$dotfile_basename"
+    elif [ -d $dotfile ]; then
+        config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+        echo "$dotfile is a non-hidden directory; symlinking to $config_home"
+        dest="$config_home/$dotfile_basename"
+    else
+        echo "$dotfile is a non-hidden regular file and is too ambiguous to determine where to place it."
+        continue
+    fi
+
+    perform_safe_link "$dotfile" "$dest"
+done
+
+[ "$(ls -A $overwrites)" ] && {
+    echo "Files were overwritten during bootstrapping; originals can be found in $overwrites"
+}
+
+cd $dotfiles_dir && git submodule update --init

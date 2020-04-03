@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+function acclean {
+	local current_directory="$(pwd)"
+	cd "$HOME/Workspace/appcenter"
+	git clean -xdf
+	cd "$current_directory"
+}
+
+function dotfiles {
+	local current_directory="$(pwd)"
+	cd "$HOME/.dotfiles"
+	git "$@"
+	cd "$current_directory"
+}
