@@ -14,11 +14,11 @@ perform_safe_link() {
     if [ -e "$dest" ]; then
         if [ -L "$dest" ] && [ "$(readlink $dest)" = "$src" ]; then
             echo "  $dest is already symlinked to $src; skipping."
+            return
         else
             echo "  $dest already exists; moving to $overwrites for manual cleanup."
             mv "$dest" "$overwrites"
         fi
-        return
     fi
 
     ln -s $src $dest
