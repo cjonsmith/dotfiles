@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+alias ls='ls --color=auto'
 alias cdn='cd $NOTES_HOME'
 alias sourcerc='source ~/.bashrc'
 alias cdw='cd ~/Workspace'
