@@ -1,2 +1,8 @@
 overwrites
 bash_hidden
+mpd/pid
+mpd/state
+mpd/database
+mpd/sticker.sql
+mpd/log
+
