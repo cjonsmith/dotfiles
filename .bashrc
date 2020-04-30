@@ -16,8 +16,6 @@ done
 
 touch ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden && source ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden
 
-stty stop ^J # Bind `stop` to CTRL-J so forward-search history is available
-
 export NVM_DIR="$HOME/.nvm"
 if [ -d $NVM_DIR ]; then
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

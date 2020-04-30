@@ -10,21 +10,28 @@ if status --is-login
 	set -gx ENVIRONMENTS $HOME/Environments
 
 	# Path updates
-	set -gx PATH $HOME/.rbenv/bin $PATH
-	set -gx PATH $PATH /snap/bin
-	set -gx PATH $PATH $HOME/bin
-	set -gx PATH $PATH $APPCENTER/diagnostics/utilities/bin
-	set -gx PATH $PATH $HOME/Software/depot_tools
-	set -gx PATH $PATH $HOME/.cargo/bin
-	set -gx PATH $PATH $ANDROID_HOME/emulator
-	set -gx PATH $PATH $ANDROID_HOME/tools
-	set -gx PATH $PATH $ANDROID_HOME/tools/bin
-	set -gx PATH $PATH $ANDROID_HOME/platform-tools
+	set locations \
+		$HOME/.rbenv/bin \
+		/snap/bin \
+		$APPCENTER/diagnostics/utilities/bin \
+		$HOME/Software/depot_tools \
+		$HOME/.cargo/bin \
+		$ANDROID_HOME/emulator \
+		$ANDROID_HOME/tools \
+		$ANDROID_HOME/tools/bin \
+		$ANDROID_HOME/platform-tools
+
+	for location in $locations
+		if test -d $location
+			set -gx PATH $PATH $location
+		end
+	end
 
 	if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
 		exec startx -- -keeptty
 	end
 
+	# Download and install fisher
 	if not functions -q fisher
 		set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
 		curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
@@ -32,36 +39,8 @@ if status --is-login
 	end
 end
 
-status --is-interactive; and source (rbenv init -|psub)
+source $HOME/.config/fish/abbreviations.fish
 
-abbr dotfiles 'git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-abbr k        'kubectl'
-abbr dcb      '~/Workspace/work/appcenter/dockercompose/build.ps1'
-abbr dcr      '~/Workspace/work/appcenter/dockercompose/restart.ps1'
-abbr dct      '~/Workspace/work/appcenter/dockercompose/tests.ps1'
-abbr dcf      '~/Workspace/work/appcenter/dockercompose/functional.ps1'
-abbr dcps     '~/Workspace/work/appcenter/dockercompose/ps.ps1'
-abbr dcc      '~/Workspace/work/appcenter/dockercompose/clean.ps1'
-abbr dcs      '~/Workspace/work/appcenter/dockercompose/stop.ps1'
-
-# Config files
-abbr cf   'cd $HOME/.config ;and ls'
-abbr cff  'cd $HOME/.config/fish ;and ls'
-abbr cfff 'cd $HOME/.config/fish/functions ;and ls'
-abbr cfm  'cd $HOME/.xmonad ;and ls'
-abbr cfv  'cd $HOME/.vim ;and ls'
-abbr cfb  'cd $HOME/.vim/bundle ;and ls'
-
-# Directory movements
-abbr ws  'cd $HOME/Workspace ;and ls'
-abbr bin 'cd $HOME/bin ;and ls'
-abbr d   'cd $HOME/Documents ;and ls'
-abbr D   'cd $HOME/Downloads ;and ls'
-abbr n   'cd $NOTES_HOME ;and ls'
-abbr p   'cd $HOME/Pictures ;and ls'
-abbr bgs 'cd $HOME/Pictures/Backgrounds ;and ls'
-abbr ac  'cd $APPCENTER ;and ls'
-abbr s   'cd $HOME/Workspace/secrets ;and ls'
-abbr so  'cd $HOME/Software ;and ls'
-
-status --is-interactive; and . (rbenv init -|psub)
+if command --search rbenv
+	status --is-interactive; and . (rbenv init -|psub)
+end

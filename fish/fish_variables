@@ -3,6 +3,7 @@
 SETUVAR __fish_init_2_39_8:\x1d
 SETUVAR __fish_init_2_3_0:\x1d
 SETUVAR __fish_init_3_x:\x1d
+SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_D:cd\x20\x24HOME/Downloads\x20\x3band\x20ls
 SETUVAR _fish_abbr_ac:cd\x20\x24APPCENTER\x20\x3band\x20ls
 SETUVAR _fish_abbr_add:work\x20cd\x20\x24HOME/Workspace/work\x20\x3band\x20ls\x20\x24HOME/Workspace/work
@@ -24,7 +25,7 @@ SETUVAR _fish_abbr_dcps:\x7e/Workspace/work/appcenter/dockercompose/ps\x2eps1
 SETUVAR _fish_abbr_dcr:\x7e/Workspace/work/appcenter/dockercompose/restart\x2eps1
 SETUVAR _fish_abbr_dcs:\x7e/Workspace/work/appcenter/dockercompose/stop\x2eps1
 SETUVAR _fish_abbr_dct:\x7e/Workspace/work/appcenter/dockercompose/tests\x2eps1
-SETUVAR _fish_abbr_dotfiles:git\x20\x2d\x2dgit\x2ddir\x3d\x24HOME/\x2edotfiles\x20\x2d\x2dwork\x2dtree\x3d\x24HOME
+SETUVAR _fish_abbr_dotfiles:git\x20\x2d\x2dgit\x2ddir\x3d\x24HOME/\x2edotfiles/\x2egit\x20\x2d\x2dwork\x2dtree\x3d\x24HOME/\x2edotfiles
 SETUVAR _fish_abbr_k:kubectl
 SETUVAR _fish_abbr_lap:node\x20\x24HOME/Workspace/work/appcenter\x2dcli/bin/appcenter\x2ejs
 SETUVAR _fish_abbr_n:cd\x20\x24NOTES_HOME\x20\x3band\x20ls
@@ -44,6 +45,7 @@ SETUVAR fish_color_error:FFB86C
 SETUVAR fish_color_escape:00a6b2
 SETUVAR fish_color_history_current:\x2d\x2dbold
 SETUVAR fish_color_host:normal
+SETUVAR fish_color_host_remote:yellow
 SETUVAR fish_color_match:\x2d\x2dbackground\x3dbrblue
 SETUVAR fish_color_normal:normal
 SETUVAR fish_color_operator:00a6b2
