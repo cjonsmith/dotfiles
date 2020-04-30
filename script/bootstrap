@@ -5,14 +5,14 @@
 #/   bootstrap
 set -e
 
-dotfiles_dir="$(cd "$(dirname $0)/.." && pwd)"
+dotfiles_dir="$(cd "$(dirname "$0")/.." && pwd)"
 overwrites="$dotfiles_dir/overwrites"
 [ ! -d "$overwrites" ] && mkdir "$overwrites"
 
 perform_safe_link() {
     local src=$1 dest=$2
     if [ -e "$dest" ]; then
-        if [ -L "$dest" ] && [ "$(readlink $dest)" = "$src" ]; then
+        if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
             echo "  $dest is already symlinked to $src; skipping."
             return
         else
@@ -21,15 +21,16 @@ perform_safe_link() {
         fi
     fi
 
-    ln -s $src $dest
+    mkdir --parents "$(dirname "$dest")"
+    ln -s "$src" "$dest"
 }
 
 for dotfile in $(find "$dotfiles_dir" -mindepth 1 -maxdepth 1 ! -path '*.git*' ! -path "*$(dirname $0)" ! -path "*$(basename $overwrites)"); do
-    dotfile_basename="$(basename $dotfile)"
+    dotfile_basename="$(basename "$dotfile")"
     if [[ "$dotfile_basename" =~ ^\. ]]; then
         echo "$dotfile is a hidden file; symlinking to $HOME"
         dest="$HOME/$dotfile_basename"
-    elif [ -d $dotfile ]; then
+    elif [ -d "$dotfile" ]; then
         config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
         echo "$dotfile is a non-hidden directory; symlinking to $config_home"
         dest="$config_home/$dotfile_basename"
@@ -41,8 +42,8 @@ for dotfile in $(find "$dotfiles_dir" -mindepth 1 -maxdepth 1 ! -path '*.git*' !
     perform_safe_link "$dotfile" "$dest"
 done
 
-[ "$(ls -A $overwrites)" ] && {
+[ "$(ls -A "$overwrites")" ] && {
     echo "Files were overwritten during bootstrapping; originals can be found in $overwrites"
 }
 
-cd $dotfiles_dir && git submodule update --init
+cd "$dotfiles_dir" && git submodule update --init
