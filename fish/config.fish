@@ -42,5 +42,5 @@ end
 source $HOME/.config/fish/abbreviations.fish
 
 if command --search rbenv
-	status --is-interactive; and . (rbenv init -|psub)
+	status --is-interactive; and source (rbenv init -|psub)
 end
