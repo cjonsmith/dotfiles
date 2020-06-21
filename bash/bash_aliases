@@ -14,3 +14,5 @@ alias d='ls $HOME/Documents && cd $HOME/Documents'
 alias D='ls $HOME/Downloads && cd $HOME/Downloads'
 alias b='ls $HOME/bin && cd $HOME/bin'
 alias s='ls $HOME/Workspace/secrets && cd $HOME/Workspace/secrets'
+alias brc='$EDITOR $HOME/.bashrc'
+
