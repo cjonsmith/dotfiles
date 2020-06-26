@@ -21,7 +21,7 @@ perform_safe_link() {
         fi
     fi
 
-    mkdir --parents "$(dirname "$dest")"
+    mkdir -p "$(dirname "$dest")"
     ln -s "$src" "$dest"
 }
 
