@@ -5,4 +5,5 @@ mpd/state
 mpd/database
 mpd/sticker.sql
 mpd/log
-
+.emacs.d/*
+!.emacs.d/init.el
