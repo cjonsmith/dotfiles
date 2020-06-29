@@ -27,6 +27,10 @@
 ;; Set the size of the frame
 (setq-default initial-frame-alist '((width . 135) (height . 55)))
 
+;; Keybindings
+(global-set-key (kbd "C-x g") 'magit-status)
+(setq mac-command-modifier 'meta)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
