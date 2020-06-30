@@ -1,5 +1,11 @@
+.DS_Store
 overwrites
 bash_hidden
+fish/conf.d
+fish/completions/fisher.fish
+fish/functions/fisher.fish
+fish/completions/nvm.fish
+fish/functions/nvm.fish
 mpd/pid
 mpd/state
 mpd/database
