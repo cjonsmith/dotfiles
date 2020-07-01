@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 if [ "$(uname)" = "Darwin" ]; then
-    alias ls=gls
+    alias ls='gls --color=auto'
+else
+    alias ls='ls --color=auto'
 fi
 
-alias ls='ls --color=auto'
 alias cdn='cd $NOTES_HOME'
 alias sourcerc='source ~/.bashrc'
 alias cdw='cd ~/Workspace'
