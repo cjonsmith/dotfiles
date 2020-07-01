@@ -21,7 +21,9 @@
 (ido-mode 1)
 
 ;; Update default font to Source Code Pro and disable line spacing
-(set-face-attribute 'default nil :font "Source Code Pro-12")
+(if (eq system-type 'gnu/linux)
+    (set-face-attribute 'default nil :font "Source Code Pro-12")
+  )
 (setq-default line-spacing 0)
 
 ;; Set the size of the frame

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-if [ "$(uname)" != "Darwin" ]; then
-    alias ls='ls --color=auto'
-else
-    alias ls='ls -G'
+if [ "$(uname)" = "Darwin" ]; then
+    alias ls=gls
 fi
+
+alias ls='ls --color=auto'
 alias cdn='cd $NOTES_HOME'
 alias sourcerc='source ~/.bashrc'
 alias cdw='cd ~/Workspace'
@@ -19,4 +19,3 @@ alias D='ls $HOME/Downloads && cd $HOME/Downloads'
 alias b='ls $HOME/bin && cd $HOME/bin'
 alias s='ls $HOME/Workspace/secrets && cd $HOME/Workspace/secrets'
 alias brc='$EDITOR $HOME/.bashrc'
-
