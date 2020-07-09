@@ -48,6 +48,7 @@
  ;; If there is more than one, they won't work right.
  '(Info-isearch-search t)
  '(org-startup-truncated nil)
+ '(dired-isearch-filenames t)
  '(package-selected-packages (quote (flycheck magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
