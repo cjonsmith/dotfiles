@@ -7,6 +7,9 @@
   )
 (package-initialize)
 
+;; Enable syntax checking, globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 ;; Disable menu-bar, tool-bar, and scroll-bar
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -45,7 +48,7 @@
  ;; If there is more than one, they won't work right.
  '(Info-isearch-search t)
  '(org-startup-truncated nil)
- '(package-selected-packages (quote (magit))))
+ '(package-selected-packages (quote (flycheck magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
