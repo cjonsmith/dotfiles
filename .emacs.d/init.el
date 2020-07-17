@@ -47,9 +47,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Info-isearch-search t)
- '(org-startup-truncated nil)
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
  '(dired-isearch-filenames t)
+ '(frame-resize-pixelwise t)
+ '(org-startup-truncated nil)
  '(package-selected-packages (quote (flycheck magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
