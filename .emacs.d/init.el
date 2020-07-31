@@ -29,6 +29,13 @@
   )
 (setq-default line-spacing 0)
 
+;; Use GNU ls if on MacOS
+(if (eq system-type 'darwin)
+  (setq dired-use-ls-dired t
+	insert-directory-program "/usr/local/bin/gls"))
+
+(setq dired-listing-switches "-lah --group-directories-first")
+
 ;; Set the size of the frame
 (setq-default initial-frame-alist '((width . 135) (height . 55)))
 
