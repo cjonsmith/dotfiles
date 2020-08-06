@@ -11,6 +11,7 @@ call pathogen#infect()
 " -- Display
 set title           " Update the title of the window
 set relativenumber  " Display relative line numbers
+set number			" Display the current number of line cursor is on
 set ruler           " Display cursor position
 set wrap            " Word-wrap when too lines are too long
 
@@ -61,9 +62,14 @@ endif
 
 " -- Remaps/bindings
 nnoremap \ :nohls<Enter> " Turn off highlight after search with \
+let mapleader = " "
+nnoremap <SPACE> <Nop>
 nnoremap <Leader>b :ls<CR>:b<Space>
+nnoremap <Leader>sb :ls<CR>:sb<Space>
+nnoremap <Leader>vsb :ls<CR>:vert sb<Space>
 nnoremap <Leader>l :RainbowLevelsToggle<CR>
 nnoremap <Leader>a :ALEToggle<CR>
+nnoremap <Leader>vrc :e ~/.vimrc
 map <C-n> :NERDTreeToggle<CR>
 
 " Start NERDTree automatically if opening a directory
