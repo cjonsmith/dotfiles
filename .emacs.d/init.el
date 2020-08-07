@@ -55,10 +55,13 @@
  ;; If there is more than one, they won't work right.
  '(Info-isearch-search t)
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
+ '(custom-safe-themes
+   (quote
+    ("dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default)))
  '(dired-isearch-filenames t)
  '(frame-resize-pixelwise t)
  '(org-startup-truncated nil)
- '(package-selected-packages (quote (flycheck magit))))
+ '(package-selected-packages (quote (dracula-theme flycheck magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
