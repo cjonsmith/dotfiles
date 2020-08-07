@@ -54,12 +54,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Info-isearch-search t)
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
+ '(custom-enabled-themes (quote (dracula)))
  '(custom-safe-themes
    (quote
     ("dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default)))
  '(dired-isearch-filenames t)
  '(frame-resize-pixelwise t)
+ '(global-linum-mode t)
  '(org-startup-truncated nil)
  '(package-selected-packages (quote (dracula-theme flycheck magit))))
 (custom-set-faces
