@@ -69,7 +69,9 @@ nnoremap <Leader>sb :ls<CR>:sb<Space>
 nnoremap <Leader>vsb :ls<CR>:vert sb<Space>
 nnoremap <Leader>l :RainbowLevelsToggle<CR>
 nnoremap <Leader>a :ALEToggle<CR>
-nnoremap <Leader>vrc :e ~/.vimrc
+nnoremap <Leader>vrc :e ~/.vimrc<CR>
+" From https://www.reddit.com/r/vim/comments/i50pce/how_to_show_commit_that_introduced_current_line/
+nmap <silent><Leader>g :call setbufvar(winbufnr(popup_atcursor(split(system("git log -n 1 -L " . line(".") . ",+1:" . expand("%:p")), "\n"), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 " Start NERDTree automatically if opening a directory
