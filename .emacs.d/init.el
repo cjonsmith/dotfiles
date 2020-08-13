@@ -66,8 +66,9 @@
  '(dired-isearch-filenames t)
  '(frame-resize-pixelwise t)
  '(global-linum-mode t)
+ '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
- '(package-selected-packages (quote (dracula-theme flycheck magit))))
+ '(package-selected-packages (quote (origami treemacs dracula-theme flycheck magit)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
