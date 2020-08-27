@@ -11,7 +11,7 @@ export BROWSER=$(command -v 'brave-browser' || command -v 'firefox')
 export HISTIGNORE="[ ]*:&:bg:fg"
 
 # Use cat as pager when using emacs M-x shell
-[ "$TERM" == "dumb" ] && {
+[ "$TERM" = "dumb" ] && {
     alias less="cat"
     alias more="cat"
     export PAGER="cat"
