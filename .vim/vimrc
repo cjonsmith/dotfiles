@@ -74,8 +74,8 @@ nnoremap <Leader>vsb :ls<CR>:vert sb<Space>
 nnoremap <Leader>l :RainbowLevelsToggle<CR>
 nnoremap <Leader>a :ALEToggle<CR>
 nnoremap <Leader>vrc :e ~/.vimrc<CR>
-nnoremap <Leader>oor :Silent remote %<CR>
-" vnoremap <Leader>oor :<C-u>Silent remote --start-line . execute 'getpos("'<")[1]' . --end-line . execute 'getpos("'>")[1]' . %<CR>
+nnoremap <Leader>oor :call system("remote " . expand("%"))<CR>
+vnoremap <Leader>oor :<C-u>call system("remote --start-line " . expand(getpos("'<")[1]) . " --end-line " . expand(getpos("'>")[1]) . " " . expand("%"))<CR>
 
 " From https://www.reddit.com/r/vim/comments/i50pce/how_to_show_commit_that_introduced_current_line/
 nmap <silent><Leader>g :call setbufvar(winbufnr(popup_atcursor(split(system("git log -n 1 -L " . line(".") . ",+1:" . expand("%:p")), "\n"), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
