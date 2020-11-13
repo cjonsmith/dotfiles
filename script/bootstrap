@@ -2,8 +2,26 @@
 #/ bootstrap - Used to setup my dotfiles on a new machine.
 #/
 #/ Usage:
-#/   bootstrap
+#/   bootstrap [-s|--skip-bin-dir]
 set -e
+
+skip_bin_dir=false
+for i in "$@"; do
+    case $i in
+        -h|--help)
+            grep ^\#\/ < "$0" | cut -c4-
+            exit 1
+            ;;
+        -s|--skip-bin-dir)
+            skip_bin_dir=true
+            shift
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
+
 
 dotfiles_dir="$(cd "$(dirname "$0")/.." && pwd)"
 overwrites="$dotfiles_dir/overwrites"
@@ -54,3 +72,7 @@ done
 }
 
 cd "$dotfiles_dir" && git submodule update --init
+
+[ $skip_bin_dir ] && {
+    git clone git@github.com:cjonsmith/bin.git "$HOME/bin"
+}
