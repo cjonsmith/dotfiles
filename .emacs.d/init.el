@@ -16,7 +16,8 @@
 (scroll-bar-mode -1)
 
 ;; Toggle-able line numbers
-(global-set-key (kbd "C-x t") 'global-linum-mode)
+(global-set-key (kbd "C-x t") 'linum-mode)
+(global-set-key (kbd "C-x T") 'global-linum-mode)
 
 ;; Enable Ido, globally
 (setq ido-enable-flex-matching t)
