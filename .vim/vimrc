@@ -60,6 +60,8 @@ else
 	set guifont=DejaVu\ Sans\ Mono\ 11
 endif
 
+set rtp+=/usr/local/opt/fzf
+
 command! -nargs=1 Silent
 \	execute 'silent !' . <q-args>
 \ | execute 'redraw!'
@@ -68,7 +70,9 @@ command! -nargs=1 Silent
 nnoremap \ :nohls<Enter> " Turn off highlight after search with \
 let mapleader = " "
 nnoremap <SPACE> <Nop>
-nnoremap <Leader>b :ls<CR>:b<Space>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>rg :Rg<CR>
 nnoremap <Leader>sb :ls<CR>:sb<Space>
 nnoremap <Leader>vsb :ls<CR>:vert sb<Space>
 nnoremap <Leader>l :RainbowLevelsToggle<CR>
