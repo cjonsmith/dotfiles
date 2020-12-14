@@ -66,7 +66,6 @@
     ("dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default)))
  '(dired-isearch-filenames t)
  '(frame-resize-pixelwise t)
- '(global-linum-mode t)
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
  '(package-selected-packages (quote (origami treemacs dracula-theme flycheck magit))))
