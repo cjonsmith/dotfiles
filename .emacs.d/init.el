@@ -1,3 +1,6 @@
+;;; init.el --- Cameron Smith's Emacs configuration
+;;; Commentary:
+;;; Code:
 ;; Add MELPA (ELisp package archive)
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -20,6 +23,8 @@
 (global-set-key (kbd "C-x T") 'global-linum-mode)
 
 ;; Enable Ido, globally
+(defvar ido-enable-flex-matching)
+(defvar ido-everywhere)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
@@ -31,9 +36,10 @@
 (setq-default line-spacing 0)
 
 ;; Use GNU ls if on MacOS
+(defvar dired-use-ls-dired)
 (if (eq system-type 'darwin)
-  (setq dired-use-ls-dired t
-	insert-directory-program "/usr/local/bin/gls"))
+    (setq dired-use-ls-dired t
+	  insert-directory-program "/usr/local/bin/gls"))
 
 (setq dired-listing-switches "-lah --group-directories-first")
 
@@ -45,9 +51,7 @@
 (setq mac-command-modifier 'meta)
 
 ;; Enable dired-hide-details-mode minor mode in dired mode by default
-(add-hook 'dired-mode-hook
-	  (lambda ()
-	    (dired-hide-details-mode)))
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -75,3 +79,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+;;; init.el ends here
