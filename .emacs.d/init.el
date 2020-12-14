@@ -59,16 +59,16 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
- '(custom-enabled-themes (quote (dracula)))
+ '(backup-directory-alist '(("." . "~/.emacs.d/backups")))
+ '(custom-enabled-themes '(dracula))
  '(custom-safe-themes
-   (quote
-    ("dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default)))
+   '("dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default))
  '(dired-isearch-filenames t)
  '(frame-resize-pixelwise t)
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
- '(package-selected-packages (quote (origami treemacs dracula-theme flycheck magit))))
+ '(package-selected-packages
+   '(org-drill-table org-drill origami treemacs dracula-theme flycheck magit)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
