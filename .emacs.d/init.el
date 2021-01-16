@@ -69,10 +69,11 @@
    '("dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default))
  '(dired-isearch-filenames t)
  '(frame-resize-pixelwise t)
+ '(mini-frame-show-parameters '((left . 0.5) (top . 10) (width . 0.7)))
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit)))
+   '(smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
