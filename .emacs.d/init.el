@@ -53,6 +53,9 @@
 ;; Enable dired-hide-details-mode minor mode in dired mode by default
 (add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
+;; Enable normally disabled functions
+(put 'narrow-to-region 'disabled nil)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
