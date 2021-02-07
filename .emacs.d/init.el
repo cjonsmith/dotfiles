@@ -76,7 +76,8 @@
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit)))
+   '(yasnippet ytdl smooth-scroll mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
+ '(what-cursor-show-names t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
