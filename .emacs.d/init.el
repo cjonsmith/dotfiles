@@ -44,7 +44,7 @@
 (setq dired-listing-switches "-lah --group-directories-first")
 
 ;; Set the size of the frame
-(setq-default initial-frame-alist '((width . 135) (height . 55)))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Keybindings
 (global-set-key (kbd "C-x g") 'magit-status)
