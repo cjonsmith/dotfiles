@@ -33,6 +33,8 @@
 (if (eq system-type 'gnu/linux)
     (set-face-attribute 'default nil :font "Source Code Pro-12")
   )
+(add-to-list 'default-frame-alist
+ 	     '(font . "Source Code Pro for Powerline-14"))
 (setq-default line-spacing 0)
 
 ;; Use GNU ls if on MacOS
@@ -80,7 +82,7 @@
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(doom-themes yasnippet ytdl smooth-scroll mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
+   '(projectile browse-at-remote doom-themes yasnippet ytdl smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
  '(what-cursor-show-names t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
