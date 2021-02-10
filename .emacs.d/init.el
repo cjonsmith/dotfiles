@@ -56,6 +56,10 @@
 ;; Enable normally disabled functions
 (put 'narrow-to-region 'disabled nil)
 
+;; Enable some minor modes
+(which-key-mode t)
+(ido-vertical-mode t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
