@@ -73,14 +73,14 @@
  '(backup-directory-alist '(("." . "~/.emacs.d/backups")))
  '(custom-enabled-themes '(dracula))
  '(custom-safe-themes
-   '("dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default))
+   '("e6ff132edb1bfa0645e2ba032c44ce94a3bd3c15e3929cdf6c049802cf059a2a" "dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default))
  '(dired-isearch-filenames t)
  '(frame-resize-pixelwise t)
  '(mini-frame-show-parameters '((left . 0.5) (top . 10) (width . 0.7)))
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(yasnippet ytdl smooth-scroll mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
+   '(doom-themes yasnippet ytdl smooth-scroll mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
  '(what-cursor-show-names t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
