@@ -10,6 +10,26 @@
   )
 (package-initialize)
 
+;;; YASnippet configurations
+;; Enable YASnippet
+(require 'yasnippet)
+(yas-global-mode)
+
+;; Since `git-commit-mode' is only a minor mode, YASnippet won't load the git-commit-mode
+;; snippet table.  We can invoke the `yas-activate-extra-mode' function in a hook when the
+;; minor mode `git-commit-mode' is invoked, forcing YASnippet to load the desired snippet
+;; table.
+(add-hook 'git-commit-mode-hook
+	  #'(lambda ()
+	      (yas-activate-extra-mode 'git-commit-mode)))
+
+;; YASnippet also seems to have an issue with finding a snippet directory if it is a
+;; symlink, which is how I have my dotfiles configured.  Adding a path directly to the
+;; dotfiles directory seems to circumvent this issue.
+(setq yas-snippet-dirs (append yas-snippet-dirs
+			       '("~/.dotfiles/.emacs.d/snippets")))
+;;; End YASnippet configuration.
+
 ;; Enable syntax checking, globally
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
