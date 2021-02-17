@@ -13,3 +13,4 @@ mpd/sticker.sql
 mpd/log
 .emacs.d/*
 !.emacs.d/init.el
+!.emacs.d/snippets
