@@ -86,7 +86,7 @@
 (projectile-mode)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (defvar projectile-project-search-path)
-(setq projectile-project-search-path '("~/github"))
+(setq projectile-project-search-path '("~/github" "~/Software"))
 ;;; End Projectile configuration.
 
 (custom-set-variables
