@@ -89,6 +89,14 @@
 (setq projectile-project-search-path '("~/github" "~/Software"))
 ;;; End Projectile configuration.
 
+;;; exec-path-from-shell configuration
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+(when (daemonp)
+  (exec-path-from-shell-initialize))
+;;; End exec-path-from shell configuration
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -109,7 +117,7 @@
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(projectile browse-at-remote doom-themes yasnippet ytdl smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
+   '(exec-path-from-shell projectile-ripgrep projectile browse-at-remote doom-themes yasnippet ytdl smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
  '(what-cursor-show-names t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
