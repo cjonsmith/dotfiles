@@ -30,6 +30,15 @@
 			       '("~/.dotfiles/.emacs.d/snippets")))
 ;;; End YASnippet configuration.
 
+;;; nov configuration
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+(defun my-nov-font-setup ()
+  "Hook to set a new face for nov mode."
+  (face-remap-add-relative 'variable-pitch :family "Serif"
+			   :height 1.0))
+(add-hook 'nov-mode-hook 'my-nod-font-setup)
+;;; End nov configuration
+
 ;; Enable syntax checking, globally
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -117,7 +126,7 @@
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(exec-path-from-shell projectile-ripgrep projectile browse-at-remote doom-themes yasnippet ytdl smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
+   '(nov exec-path-from-shell projectile-ripgrep projectile browse-at-remote doom-themes yasnippet ytdl smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
  '(what-cursor-show-names t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
