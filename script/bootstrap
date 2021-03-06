@@ -53,8 +53,13 @@ perform_safe_link() {
 for dotfile in $(find "$dotfiles_dir" -mindepth 1 -maxdepth 1 ! -path '*.git*' ! -path "*$(dirname "$0")" ! -path "*$(basename "$overwrites")"); do
     dotfile_basename="$(basename "$dotfile")"
     if [[ "$dotfile_basename" =~ ^\. ]]; then
-        echo "$dotfile is a hidden file; symlinking to $HOME"
-        dest="$HOME/$dotfile_basename"
+        if [ "$dotfile_basename" = ".emacs.d" ]; then
+            echo ".emacs.d is a special case; symlinking as .handrolled-emacs in $HOME"
+            dest="$HOME/.handrolled-emacs"
+        else
+            echo "$dotfile is a hidden file; symlinking to $HOME"
+            dest="$HOME/$dotfile_basename"
+        fi
     elif [ -d "$dotfile" ]; then
         config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
         echo "$dotfile is a non-hidden directory; symlinking to $config_home"
