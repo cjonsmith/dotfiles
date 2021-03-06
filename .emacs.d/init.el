@@ -39,6 +39,13 @@
 (add-hook 'nov-mode-hook 'my-nod-font-setup)
 ;;; End nov configuration
 
+;;; ripgrep configuration
+;; Search in hidden directories and rely on contents of `projectile-globally-ignored-directories' to exclude
+;; undesired hidden directories.
+(defvar ripgrep--base-arguments)
+(add-to-list 'ripgrep--base-arguments "--hidden")
+;;; End ripgrep configuration
+
 ;; Enable syntax checking, globally
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
