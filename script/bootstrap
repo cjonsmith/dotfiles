@@ -72,6 +72,23 @@ for dotfile in $(find "$dotfiles_dir" -mindepth 1 -maxdepth 1 ! -path '*.git*' !
     perform_safe_link "$dotfile" "$dest"
 done
 
+[ "$1" = "--full" ] && {
+	echo "WARNING: Attempting a full bootstrap; this has not been tested before!"
+    if [ "$(uname)" = "Darwin" ]; then
+		echo "WARNING: Attempting a Mac specific bootstrap; this has not been tested before!"
+        [ command -v /usr/bin/ruby &>/dev/null ] && {
+            echo "Installing brew..."
+            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        }
+        ! [ -d "/usr/local/opt/emacs-mac/Emacs.app" ] && {
+            echo "Installing Emacs..."
+            brew tap railwaycat/emacsmacport
+            brew install emacs-mac --with-modules
+            ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications/Emacs.app
+        }
+    fi
+}
+
 [ "$(ls -A "$overwrites")" ] && {
     echo "Files were overwritten during bootstrapping; originals can be found in $overwrites"
 }
