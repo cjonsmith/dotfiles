@@ -52,3 +52,5 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(setq projectile-project-search-path '("~/github" "~/Software" "~/Workspace"))
+;; (map! :map nov-mode-map :leader :desc "Render document" "b r" #'nov-render-document)
