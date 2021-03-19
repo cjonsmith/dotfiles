@@ -101,8 +101,15 @@
 ;;; Projectile configuration
 (projectile-mode)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+;; Add the directories specified in `directories' to `projectile-project-search-path'
+;; if they exist.
 (defvar projectile-project-search-path)
-(setq projectile-project-search-path '("~/github" "~/Software"))
+(let ((directories '("~/github" "~/Software")))
+  (mapc (lambda (d)
+	  (when (file-exists-p d)
+	    (add-to-list 'projectile-project-search-path d t)))
+	directories))
 ;;; End Projectile configuration.
 
 ;;; exec-path-from-shell configuration
