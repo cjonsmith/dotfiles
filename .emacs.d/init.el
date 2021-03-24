@@ -42,8 +42,8 @@
 ;;; ripgrep configuration
 ;; Search in hidden directories and rely on contents of `projectile-globally-ignored-directories' to exclude
 ;; undesired hidden directories.
-(defvar ripgrep--base-arguments)
-(add-to-list 'ripgrep--base-arguments "--hidden")
+;;(defvar ripgrep--base-arguments)
+;;(add-to-list 'ripgrep--base-arguments "--hidden")
 ;;; End ripgrep configuration
 
 ;; Enable syntax checking, globally
