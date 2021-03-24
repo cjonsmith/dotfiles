@@ -101,6 +101,7 @@
 ;;; Projectile configuration
 (projectile-mode)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(setq projectile-switch-project-action 'projectile-dired)
 
 ;; Add the directories specified in `directories' to `projectile-project-search-path'
 ;; if they exist.
@@ -131,21 +132,21 @@
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(backup-directory-alist '(("." . "~/.emacs.d/backups")))
- '(custom-enabled-themes '(dracula))
+ '(custom-enabled-themes '(atom-dark))
  '(custom-safe-themes
-   '("e6ff132edb1bfa0645e2ba032c44ce94a3bd3c15e3929cdf6c049802cf059a2a" "dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default))
+   '("5b7c31eb904d50c470ce264318f41b3bbc85545e4359e6b7d48ee88a892b1915" "e6ff132edb1bfa0645e2ba032c44ce94a3bd3c15e3929cdf6c049802cf059a2a" "dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default))
  '(dired-isearch-filenames t)
  '(frame-resize-pixelwise t)
  '(mini-frame-show-parameters '((left . 0.5) (top . 10) (width . 0.7)))
  '(next-screen-context-lines 10)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(nov exec-path-from-shell projectile-ripgrep projectile browse-at-remote doom-themes yasnippet ytdl smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
+   '(atom-dark-theme nov exec-path-from-shell projectile-ripgrep projectile browse-at-remote doom-themes yasnippet ytdl smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
  '(what-cursor-show-names t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(Info-quoted ((t (:inherit italic :foreground "#99CC99")))))
 ;;; init.el ends here
