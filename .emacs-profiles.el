@@ -2,6 +2,6 @@
 ;;; Commentary:
 ;;;      List of Emacs configurations as used by Chemacs2
 ;;; Code:
-(("default"    . ((user-emacs-directory . "~/.doom-emacs")))
- ("handrolled" . ((user-emacs-directory . "~/.handrolled-emacs"))))
+(("default" . ((user-emacs-directory . "~/.handrolled-emacs")))
+ ("doom" . ((user-emacs-directory . "~/.doom-emacs"))))
 ;;; .emacs-profiles.el ends here
