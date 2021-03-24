@@ -1,7 +1,7 @@
 ;;; init.el --- Cameron Smith's Emacs configuration
 ;;; Commentary:
 ;;; Code:
-;; Add MELPA (ELisp package archive)
+;; Add MELPA (ELisp package archive) and Org package archive.
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
