@@ -101,6 +101,7 @@
 ;;; Projectile configuration
 (projectile-mode)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(setq projectile-switch-project-action 'projectile-dired)
 
 ;; Add the directories specified in `directories' to `projectile-project-search-path'
 ;; if they exist.
