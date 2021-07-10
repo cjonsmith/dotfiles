@@ -99,11 +99,16 @@ function."
   (with-output-to-temp-buffer "*OSRS Shooting Stars*"
     (temp-buffer-resize-mode)
     (mapcar (lambda (location)
-	      (princ (format "World %d: %s (%d minutes - %d minutes)\n"
-			     (osrs-shooting-star-world location)
-			     (osrs-shooting-star-location location)
-			     (osrs-shooting-star-min-time location)
-			     (osrs-shooting-star-max-time location))))
+	      (let ((world (osrs-shooting-star-world location))
+		    (location (osrs-shooting-star-location location))
+		    (min-time (osrs-shooting-star-min-time location))
+		    (max-time (osrs-shooting-star-max-time location)))
+		(when (> max-time 0)
+		  (princ (format "World %d: %s (%d minutes - %d minutes)\n"
+				 world
+				 location
+				 min-time
+				 max-time)))))
 	    (osrs-get-shooting-stars))))
 
 ;; TODO Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
