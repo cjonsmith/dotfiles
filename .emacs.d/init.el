@@ -13,6 +13,9 @@
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'meta))
 
+(when (eq system-type 'gnu/linux)
+  (tool-bar-mode 0))
+
 (defun get-ghes-releases ()
   "Fetches the current releases of GHES.
 
