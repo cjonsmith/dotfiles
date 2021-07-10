@@ -96,17 +96,18 @@ function."
        (time-convert (current-time) 'integer))
       60))
 
-(defun osrs-shooting-stars ()
-  "Opens a temporary buffer containing a list of worlds and locations of future shooting stars in Old School Runescape."
-  (interactive)
+(defun osrs-shooting-stars (minutes)
+  "Opens a temporary buffer containing a list of worlds and locations of future shooting stars in Old School Runescape within the last MINUTES."
+  (interactive "p")
   (with-output-to-temp-buffer "*OSRS Shooting Stars*"
     (temp-buffer-resize-mode)
+    (message "Minutes: %d" minutes)
     (mapcar (lambda (location)
 	      (let ((world (osrs-shooting-star-world location))
 		    (location (osrs-shooting-star-location location))
 		    (min-time (osrs-shooting-star-min-time location))
 		    (max-time (osrs-shooting-star-max-time location)))
-		(when (> max-time 0)
+		(when (>= max-time (* -1 minutes))
 		  (princ (format "World %d: %s (%d minutes - %d minutes)\n"
 				 world
 				 location
