@@ -29,7 +29,7 @@ Returns an list of alists whose car is a minor version of GHES and whose cdr is 
       (json-read))))
 
 (defun ghes-releases ()
-  "Shows the current versions the available version of GHES."
+  "Shows the most recent minor version of each major version of GHES."
   (interactive)
   (with-output-to-temp-buffer "*GHES Releases*"
       (temp-buffer-resize-mode)
