@@ -117,8 +117,13 @@ function."
 
 ;; TODO Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
 
+;; CAUTION: Be sure to reset this to the default value (10) if you're going to be making changes to a file remotely
+;; outside of TRAMP or another user has access to the same files and will make changes as well.
+(setq remote-file-name-inhibit-cache nil)
+
 (require 'use-package)
-(use-package project)
+(use-package project
+  :ensure project)
 
 (use-package which-key
   :config
