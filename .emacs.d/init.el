@@ -177,6 +177,17 @@ function."
 
 (use-package request
   :ensure request)
+
+(use-package nov
+  :mode (".epub" . nov-mode)
+  :config
+  (progn
+    (defun my-nov-font-setup ()
+      (face-remap-add-relative 'variable-pitch
+			       :family "Cochin Regular"
+			       :height 1.5))
+    (add-hook 'nov-mode-hook 'my-nov-font-setup)))
+
 ;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
