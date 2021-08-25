@@ -2,6 +2,7 @@
 export NOTES_HOME=$HOME/notes
 export EDITOR=/usr/bin/vim
 export BROWSER=$(command -v 'brave-browser' || command -v 'firefox')
+export TAGFILE=$HOME/.tagfile
 
 # Path updates
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
@@ -27,6 +28,13 @@ done< <(find -H "${XDG_CONFIG_FOME:-$HOME/.config}/bash" -type f "${EXCLUDED_FIL
 touch ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden && source ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+command -v hostname &>/dev/null && {
+  if [[ ! -e $TAGFILE ]] && [[ $(hostname) =~ .*\.bpdev.*\.github\.net ]]; then
+    touch $TAGFILE
+    rtag > $TAGFILE
+  fi
+}
 
 export NVM_DIR="$HOME/.nvm"
 if [ -d $NVM_DIR ]; then

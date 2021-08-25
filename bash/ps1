@@ -40,7 +40,13 @@ function prev_func_err {
 		echo -e "💩 "
 	fi
 }
-PS1="\$(prev_func_err)"
+
+[[ $? -ne 0 ]] && {
+   prev_command_err="💩 "
+}
+PS1=
+[ -e $TAGFILE ] && PS1+="\[$COLOR_GREEN\]\$(cat $TAGFILE)\[$COLOR_RESET\]\n"
+PS1+="\$(echo -e $prev_command_err)"
 PS1+="\[$COLOR_YELLOW\]\u\[$COLOR_WHITE\] in "	# Username and `in`
 PS1+="\[$COLOR_CYAN\]\W\[$COLOR_WHITE\]"		# Basename of dir
 PS1+="\[\$(git_color)\]\$(git_branch)"			# Branch and color

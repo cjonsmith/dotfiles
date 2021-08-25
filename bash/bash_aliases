@@ -5,6 +5,13 @@ else
     alias ls='ls --color=auto'
     alias open='xdg-open'
 fi
+
+if command -v hostname &>/dev/null && [[ $(hostname) =~ .*\.bpdev.*\.github\.net ]]; then
+  # Short for "refresh tag"
+  alias rtag="aws ec2 describe-tags --filters \"Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)\" |\
+      jq -r '.Tags[] | select(.Key == \"custom_tags\").Value'"
+fi
+
 alias cdn='cd $NOTES_HOME'
 alias sourcerc='source ~/.bashrc'
 alias cdw='cd ~/Workspace'
