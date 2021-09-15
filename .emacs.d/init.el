@@ -10,6 +10,8 @@
   (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t))
 (package-initialize)
 
+(load "~/.dotfiles/.emacs.d/newsticker-urls" t)
+
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'meta))
 
