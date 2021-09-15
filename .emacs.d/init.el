@@ -29,7 +29,7 @@ Returns an list of alists whose car is a minor version of GHES and whose cdr is 
       (json-read))))
 
 (defun ghes-releases ()
-  "Shows the current versions the available version of GHES."
+  "Shows the most recent minor version of each major version of GHES."
   (interactive)
   (with-output-to-temp-buffer "*GHES Releases*"
       (temp-buffer-resize-mode)
@@ -119,8 +119,13 @@ function."
 
 ;; TODO Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
 
+;; CAUTION: Be sure to reset this to the default value (10) if you're going to be making changes to a file remotely
+;; outside of TRAMP or another user has access to the same files and will make changes as well.
+(setq remote-file-name-inhibit-cache nil)
+
 (require 'use-package)
-(use-package project)
+(use-package project
+  :ensure project)
 
 (use-package which-key
   :config
@@ -131,7 +136,8 @@ function."
   :config
   (progn
     ;; Default all non-accounted for file-types to open in Emacs (I might regret this later)
-    (add-to-list 'org-file-apps '(t . emacs) t)))
+    (add-to-list 'org-file-apps '(t . emacs) t)
+    (setq org-image-actual-width nil)))
 
 (use-package sh-script
   :config
