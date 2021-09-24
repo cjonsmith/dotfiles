@@ -183,7 +183,8 @@ function."
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-deplay 0.0)
-  (global-company-mode t))
+  :hook
+  (sh-mode . company-mode))
 
 (use-package company-shell
   :after (company)
