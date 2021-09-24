@@ -157,6 +157,7 @@ function."
 (use-package sh-script
   :config
   (progn
+    (setq sh-basic-offset 2)
     (add-hook 'sh-mode-hook
               (lambda ()
                 (setq indent-tabs-mode nil)))))
