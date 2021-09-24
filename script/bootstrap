@@ -5,7 +5,7 @@
 #/   bootstrap [-s|--skip-bin-dir]
 set -e
 
-skip_bin_dir=false
+skip_bin_dir=
 for i in "$@"; do
     case $i in
         -h|--help)
@@ -13,7 +13,7 @@ for i in "$@"; do
             exit 1
             ;;
         -s|--skip-bin-dir)
-            skip_bin_dir=true
+            skip_bin_dir=1
             shift
             ;;
         *)
@@ -78,6 +78,6 @@ done
 
 cd "$dotfiles_dir" && git submodule update --init
 
-[ $skip_bin_dir ] && {
+[ "$skip_bin_dir" ] && {
     git clone git@github.com:cjonsmith/bin.git "$HOME/bin"
 }
