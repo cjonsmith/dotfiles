@@ -162,6 +162,9 @@ function."
               (lambda ()
                 (setq indent-tabs-mode nil)))))
 
+(use-package ruby-mode
+  :after lsp-mode)
+
 (use-package forge
   :after magit
   :init
@@ -172,6 +175,7 @@ function."
   (setq lsp-keymap-prefix "C-c l")
   :hook
   ((sh-mode . lsp)
+   (ruby-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package company
