@@ -126,6 +126,15 @@ function."
 ;; outside of TRAMP or another user has access to the same files and will make changes as well.
 (setq remote-file-name-inhibit-cache nil)
 
+;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
+;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
+;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
+;; this problem, since `brew' (or whatever package manager that's being used) will handle setting the `PATH' environment variable
+;; correctly (thus including it in the `exec-path' variable in Emacs) along with setting up the dictionaries for it as well.
+(if (executable-find "aspell")
+    (setq ispell-program-name "/usr/local/bin/aspell")
+  (message "Executable: `aspell' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use spellchecking."))
+
 (require 'use-package)
 (use-package project
   :ensure project)
