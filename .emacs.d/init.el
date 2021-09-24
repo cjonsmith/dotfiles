@@ -139,6 +139,10 @@ function."
 (use-package project
   :ensure project)
 
+(use-package winner
+  :config
+  (setq winner-mode 1))
+
 (use-package which-key
   :config
   (which-key-mode))
