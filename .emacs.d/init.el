@@ -135,6 +135,8 @@ function."
     (setq ispell-program-name "/usr/local/bin/aspell")
   (message "Executable: `aspell' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use spellchecking."))
 
+(setq scroll-conservatively 1)
+
 (require 'use-package)
 (use-package project
   :ensure project)
