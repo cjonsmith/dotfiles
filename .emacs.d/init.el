@@ -179,6 +179,9 @@ If called with C-u, then only copy the name of the file."
 (use-package ruby-mode
   :after lsp-mode)
 
+(use-package go-mode
+  :after lsp-mode)
+
 (use-package forge
   :after magit
   :init
@@ -190,6 +193,7 @@ If called with C-u, then only copy the name of the file."
   :hook
   ((sh-mode . lsp)
    (ruby-mode . lsp)
+   (go-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package company
