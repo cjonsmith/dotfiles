@@ -197,17 +197,18 @@ If called with C-u, then only copy the name of the file."
    (typescript-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
-(use-package company
-  :ensure company
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-deplay 0.0)
-  :hook
-  (sh-mode . company-mode))
+(when (not (eq system-type 'darwin))
+  (use-package company
+    :ensure company
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-deplay 0.0)
+    :hook
+    (sh-mode . company-mode))
 
-(use-package company-shell
-  :after (company)
-  :config (add-to-list 'company-backends 'company-shell))
+  (use-package company-shell
+    :after (company)
+    :config (add-to-list 'company-backends 'company-shell)))
 
 (use-package doc-view
   :init
