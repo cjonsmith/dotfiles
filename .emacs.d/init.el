@@ -18,8 +18,8 @@
 (when (eq system-type 'gnu/linux)
   (tool-bar-mode 0))
 
-(setq doc-view-resolution 400)
-(setq org-image-actual-width nil)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-c f n") 'cjonsmith-copy-filename-as-kill)
 
 (defun get-ghes-releases ()
   "Fetches the current releases of GHES.
