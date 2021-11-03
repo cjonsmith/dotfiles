@@ -7,6 +7,7 @@ export BROWSER=$(command -v 'brave-browser' || command -v 'firefox')
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
 [ -d "$HOME/bin" ] && export PATH="$PATH:$HOME/bin"
 [ -d "$HOME/.doom-emacs/bin" ] && export PATH="$PATH:$HOME/.doom-emacs/bin"
+[ -d /usr/local/sbin ] && export PATH="/usr/local/sbin:$PATH"
 
 # Ignore commands starting with a space and a few other specific commands
 export HISTIGNORE="[ ]*:&:bg:fg"
