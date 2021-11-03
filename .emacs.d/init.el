@@ -136,20 +136,22 @@ If called with C-u, then only copy the name of the file."
 ;; outside of TRAMP or another user has access to the same files and will make changes as well.
 (setq remote-file-name-inhibit-cache nil)
 
-;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
-;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
-;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
-;; this problem, since `brew' (or whatever package manager that's being used) will handle setting the `PATH' environment variable
-;; correctly (thus including it in the `exec-path' variable in Emacs) along with setting up the dictionaries for it as well.
-(if (executable-find "aspell")
-    (setq ispell-program-name "/usr/local/bin/aspell")
-  (message "Executable: `aspell' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use spellchecking."))
-
 (setq scroll-conservatively 1)
 
 (require 'use-package)
+
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package project
-  :ensure project)
+  :ensure project
+  :after (exec-path-from-shell)
+  :config
+  (if (executable-find "rg")
+      (setq xref-search-program 'ripgrep)
+    (message "Executable: `ripgrep' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to speed-up xref")))
 
 (use-package winner
   :config
@@ -218,6 +220,15 @@ If called with C-u, then only copy the name of the file."
 			       :family "Cochin Regular"
 			       :height 1.5))
     (add-hook 'nov-mode-hook 'my-nov-font-setup)))
+
+;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
+;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
+;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
+;; this problem, since `brew' (or whatever package manager that's being used) will handle setting the `PATH' environment variable
+;; correctly (thus including it in the `exec-path' variable in Emacs) along with setting up the dictionaries for it as well.
+(if (executable-find "aspell")
+    (setq ispell-program-name "/usr/local/bin/aspell")
+  (message "Executable: `aspell' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use spellchecking."))
 
 ;;; init.el ends here
 (custom-set-variables
