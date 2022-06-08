@@ -30,6 +30,10 @@ touch ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden && source ${XDG_CONFIG_
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+if [ -n "$GITHUB_TOKEN" ]; then
+  echo "machine goproxy.githubapp.com login nobody password $GITHUB_TOKEN" >> $HOME/.netrc
+fi
+
 export NVM_DIR="$HOME/.nvm"
 if [ -d $NVM_DIR ]; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
