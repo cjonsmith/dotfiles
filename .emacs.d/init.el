@@ -140,6 +140,10 @@ If called with C-u, then only copy the name of the file."
 
 (require 'use-package)
 
+(use-package dired
+  :config
+  (setq dired-dwim-target t))
+
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
   :config
@@ -190,6 +194,7 @@ If called with C-u, then only copy the name of the file."
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-enable-snippet nil)
   :hook
   ((sh-mode . lsp)
    (ruby-mode . lsp)
@@ -227,6 +232,22 @@ If called with C-u, then only copy the name of the file."
 			       :height 1.5))
     (add-hook 'nov-mode-hook 'my-nov-font-setup)))
 
+(use-package docker
+  :bind ("C-c d" . docker))
+
+(use-package yafolding
+  :hook
+  ((sh-mode . yafolding-mode))
+  :config
+  (defvar yafolding-mode-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map (kbd "<C-S-return>") #'yafolding-hide-parent-element)
+      (define-key map (kbd "<C-M-return>") #'yafolding-toggle-all)
+      (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
+      map)))
+
+(use-package orgit)
+
 ;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
 ;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
 ;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
@@ -242,8 +263,9 @@ If called with C-u, then only copy the name of the file."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(typescript-mode request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode forge flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async))
+   '(orgit yafolding docker dockerfile-mode typescript-mode request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode forge flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async))
  '(tramp-histfile-override nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
