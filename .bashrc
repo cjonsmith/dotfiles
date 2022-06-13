@@ -1,7 +1,7 @@
 # Variables
 export NOTES_HOME=$HOME/notes
 export EDITOR=/usr/bin/vim
-export BROWSER=$(command -v 'brave-browser' || command -v 'firefox')
+# export BROWSER=$(command -v 'brave-browser' || command -v 'firefox')
 
 # Path updates
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
