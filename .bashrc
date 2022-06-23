@@ -31,7 +31,7 @@ touch ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden && source ${XDG_CONFIG_
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 if [ -n "$GITHUB_TOKEN" ]; then
-  echo "machine goproxy.githubapp.com login nobody password $GITHUB_TOKEN" >> $HOME/.netrc
+  grep "machine goproxy.githubapp.com login nobody password $GITHUB_TOKEN" $HOME/.netrc || echo "machine goproxy.githubapp.com login nobody password $GITHUB_TOKEN" >> $HOME/.netrc
 fi
 
 export NVM_DIR="$HOME/.nvm"
