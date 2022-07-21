@@ -7,6 +7,8 @@ export BROWSER=$(command -v 'brave-browser' || command -v 'firefox')
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
 [ -d "$HOME/bin" ] && export PATH="$PATH:$HOME/bin"
 [ -d "$HOME/.doom-emacs/bin" ] && export PATH="$PATH:$HOME/.doom-emacs/bin"
+[ -d /usr/local/sbin ] && export PATH="/usr/local/sbin:$PATH"
+2>&1 command -v go >/dev/null && export PATH="$(go env GOBIN):$PATH"
 
 # Ignore commands starting with a space and a few other specific commands
 export HISTIGNORE="[ ]*:&:bg:fg"
@@ -16,11 +18,13 @@ export HISTIGNORE="[ ]*:&:bg:fg"
     alias less="cat"
     alias more="cat"
     export PAGER="cat"
+    PS1="$ "
+    EXCLUDED_FILES=( ! -name ps1 )
 }
 
-for file in ${XDG_CONFIG_HOME:-$HOME/.config}/bash/*; do
-	source "$file"
-done
+while IFS= read -r config_file; do
+    source "$config_file"
+done< <(find -H "${XDG_CONFIG_FOME:-$HOME/.config}/bash" -type f "${EXCLUDED_FILES[@]}" -print)
 
 touch ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden && source ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden
 

@@ -18,6 +18,9 @@
 (when (eq system-type 'gnu/linux)
   (tool-bar-mode 0))
 
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-c f n") 'cjonsmith-copy-filename-as-kill)
+
 (defun get-ghes-releases ()
   "Fetches the current releases of GHES.
 
@@ -118,6 +121,16 @@ function."
 	    (osrs-get-shooting-stars))))
 
 ;; TODO Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
+(defun cjonsmith-copy-filename-as-kill ()
+  "Adds the filename (including path) of the current buffer to the kill ring.
+
+If called with C-u, then only copy the name of the file."
+  (interactive)
+  (cond
+   ((equal current-prefix-arg nil)
+    (kill-new (buffer-file-name)))
+   ((equal current-prefix-arg '(4))
+    (kill-new (file-name-nondirectory (buffer-file-name))))))
 
 ;; CAUTION: Be sure to reset this to the default value (10) if you're going to be making changes to a file remotely
 ;; outside of TRAMP or another user has access to the same files and will make changes as well.
@@ -126,6 +139,30 @@ function."
 (require 'use-package)
 (use-package project
   :ensure project)
+
+(setq scroll-conservatively 1)
+
+(use-package dired
+  :config
+  (setq dired-dwim-target t))
+
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :config
+  (exec-path-from-shell-initialize))
+
+(use-package project
+  :ensure project
+  :after (exec-path-from-shell)
+  :config
+  (if (executable-find "rg")
+      (setq xref-search-program 'ripgrep)
+    (message "Executable: `ripgrep' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to speed-up xref")))
+
+(use-package winner
+  :config
+  (setq winner-mode 1))
+>>>>>>> f9bd7b908e65b2a41e4c1e431df409f8f4616974
 
 (use-package which-key
   :config
@@ -142,9 +179,16 @@ function."
 (use-package sh-script
   :config
   (progn
+    (setq sh-basic-offset 2)
     (add-hook 'sh-mode-hook
               (lambda ()
                 (setq indent-tabs-mode nil)))))
+
+(use-package ruby-mode
+  :after lsp-mode)
+
+(use-package go-mode
+  :after lsp-mode)
 
 (use-package forge
   :after magit
@@ -154,20 +198,26 @@ function."
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-enable-snippet nil)
   :hook
   ((sh-mode . lsp)
+   (ruby-mode . lsp)
+   (go-mode . lsp)
+   (typescript-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
-(use-package company
-  :ensure company
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-deplay 0.0)
-  (global-company-mode t))
+(when (not (eq system-type 'darwin))
+  (use-package company
+    :ensure company
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-deplay 0.0)
+    :hook
+    (sh-mode . company-mode))
 
-(use-package company-shell
-  :after (company)
-  :config (add-to-list 'company-backends 'company-shell))
+  (use-package company-shell
+    :after (company)
+    :config (add-to-list 'company-backends 'company-shell)))
 
 (use-package doc-view
   :init
@@ -175,14 +225,52 @@ function."
 
 (use-package request
   :ensure request)
+
+(use-package nov
+  :mode (".epub" . nov-mode)
+  :config
+  (progn
+    (defun my-nov-font-setup ()
+      (face-remap-add-relative 'variable-pitch
+			       :family "Cochin Regular"
+			       :height 1.5))
+    (add-hook 'nov-mode-hook 'my-nov-font-setup)))
+
+(use-package docker
+  :bind ("C-c d" . docker))
+
+(use-package yafolding
+  :hook
+  ((sh-mode . yafolding-mode))
+  :config
+  (defvar yafolding-mode-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map (kbd "<C-S-return>") #'yafolding-hide-parent-element)
+      (define-key map (kbd "<C-M-return>") #'yafolding-toggle-all)
+      (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
+      map)))
+
+(use-package orgit)
+
+;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
+;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
+;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
+;; this problem, since `brew' (or whatever package manager that's being used) will handle setting the `PATH' environment variable
+;; correctly (thus including it in the `exec-path' variable in Emacs) along with setting up the dictionaries for it as well.
+(if (executable-find "aspell")
+    (setq ispell-program-name "/usr/local/bin/aspell")
+  (message "Executable: `aspell' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use spellchecking."))
+
 ;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode forge flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async)))
+   '(orgit yafolding docker dockerfile-mode typescript-mode request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode forge flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async))
+ '(tramp-histfile-override nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
