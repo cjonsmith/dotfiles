@@ -164,7 +164,6 @@ If called with C-u, then only copy the name of the file."
 (use-package winner
   :config
   (setq winner-mode 1))
->>>>>>> f9bd7b908e65b2a41e4c1e431df409f8f4616974
 
 (use-package which-key
   :config
