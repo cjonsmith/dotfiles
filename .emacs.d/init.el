@@ -138,6 +138,10 @@ If called with C-u, then only copy the name of the file."
 ;; outside of TRAMP or another user has access to the same files and will make changes as well.
 (setq remote-file-name-inhibit-cache nil)
 
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
 (require 'use-package)
 (use-package project
   :ensure project)
