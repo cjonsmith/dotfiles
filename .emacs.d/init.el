@@ -257,6 +257,11 @@ If called with C-u, then only copy the name of the file."
 
 (use-package orgit)
 
+(use-package graphviz-dot-mode
+  :ensure t
+  :config
+  (setq graphviz-dot-indent-width 4))
+
 ;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
 ;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
 ;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
@@ -274,7 +279,7 @@ If called with C-u, then only copy the name of the file."
  ;; If there is more than one, they won't work right.
  '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(orgit yafolding docker dockerfile-mode typescript-mode request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode forge flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async))
+   '(graphviz-dot-mode orgit yafolding docker dockerfile-mode typescript-mode request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode forge flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async))
  '(tramp-histfile-override nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
