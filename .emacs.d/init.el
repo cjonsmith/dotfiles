@@ -13,6 +13,7 @@
 (load "~/.dotfiles/.emacs.d/newsticker-urls" t)
 
 (setq frame-resize-pixelwise t)
+(setq save-interprogram-paste-before-kill t)
 
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'meta))
