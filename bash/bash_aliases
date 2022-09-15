@@ -5,6 +5,7 @@ else
     alias ls='ls --color=auto'
     alias open='xdg-open'
 fi
+
 alias cdn='cd $NOTES_HOME'
 alias sourcerc='source ~/.bashrc'
 alias cdw='cd ~/Workspace'
