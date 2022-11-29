@@ -272,6 +272,9 @@ If called with C-u, then only copy the name of the file."
     (setq ispell-program-name "/usr/local/bin/aspell")
   (message "Executable: `aspell' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use spellchecking."))
 
+;; Allow narrowing by default.
+(put 'narrow-to-region 'disabled nil)
+
 ;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
