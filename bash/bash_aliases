@@ -5,6 +5,7 @@ else
     alias ls='ls --color=auto'
     alias open='xdg-open'
 fi
+
 alias cdn='cd $NOTES_HOME'
 alias sourcerc='source ~/.bashrc'
 alias cdw='cd ~/Workspace'
@@ -21,3 +22,6 @@ alias brc='$EDITOR $HOME/.bashrc'
 
 command -v ruby >/dev/null 2>&1 && \
     alias inflate='ruby -r zlib -e "puts Zlib::Inflate.inflate(STDIN.read)"'
+
+command -v gremlin >/dev/null 2>&1 && [ -d '/usr/lib/jvm/java-11-openjdk' ] && \
+  alias gremlin='JAVA_HOME=/usr/lib/jvm/java-11-openjdk gremlin'

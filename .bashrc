@@ -24,7 +24,7 @@ export HISTIGNORE="[ ]*:&:bg:fg"
 
 while IFS= read -r config_file; do
     source "$config_file"
-done< <(find -H "${XDG_CONFIG_FOME:-$HOME/.config}/bash" -type f "${EXCLUDED_FILES[@]}" -print)
+done< <(find -H "${XDG_CONFIG_HOME:-$HOME/.config}/bash" -type f "${EXCLUDED_FILES[@]}" -print)
 
 touch ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden && source ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden
 
