@@ -319,6 +319,10 @@ If called with C-u, then only copy the name of the file."
 
 (use-package orgit)
 
+(use-package eshell
+  :init
+  (setq eshell-visual-subcommands '(("docker" "load"))))
+
 (use-package graphviz-dot-mode
   :ensure t
   :config
