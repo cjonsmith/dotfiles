@@ -1,7 +1,7 @@
 ;;; init.el --- Cameron Smith's Emacs configuration
 ;;; Commentary:
 ;;; Code:
-;; Add MELPA (ELisp package archive)
+;; Add MELPA (ELisp package archive) and Org package archive.
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -10,143 +10,358 @@
   (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t))
 (package-initialize)
 
-;;; YASnippet configurations
-;; Enable YASnippet
-(require 'yasnippet)
-(yas-global-mode)
+(load "~/.dotfiles/.emacs.d/newsticker-urls" t)
 
-;; Since `git-commit-mode' is only a minor mode, YASnippet won't load the git-commit-mode
-;; snippet table.  We can invoke the `yas-activate-extra-mode' function in a hook when the
-;; minor mode `git-commit-mode' is invoked, forcing YASnippet to load the desired snippet
-;; table.
-(add-hook 'git-commit-mode-hook
-	  #'(lambda ()
-	      (yas-activate-extra-mode 'git-commit-mode)))
+(setq frame-resize-pixelwise t)
+(setq save-interprogram-paste-before-kill t)
 
-;; YASnippet also seems to have an issue with finding a snippet directory if it is a
-;; symlink, which is how I have my dotfiles configured.  Adding a path directly to the
-;; dotfiles directory seems to circumvent this issue.
-(setq yas-snippet-dirs (append yas-snippet-dirs
-			       '("~/.dotfiles/.emacs.d/snippets")))
-;;; End YASnippet configuration.
+(when (eq system-type 'darwin)
+  (setq mac-option-modifier 'meta))
 
-;;; nov configuration
-(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-(defun my-nov-font-setup ()
-  "Hook to set a new face for nov mode."
-  (face-remap-add-relative 'variable-pitch :family "Serif"
-			   :height 1.0))
-(add-hook 'nov-mode-hook 'my-nod-font-setup)
-;;; End nov configuration
+(when (eq system-type 'gnu/linux)
+  (tool-bar-mode 0))
 
-;;; ripgrep configuration
-;; Search in hidden directories and rely on contents of `projectile-globally-ignored-directories' to exclude
-;; undesired hidden directories.
-(defvar ripgrep--base-arguments)
-(add-to-list 'ripgrep--base-arguments "--hidden")
-;;; End ripgrep configuration
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-c f n") 'cjonsmith-copy-filename-as-kill)
 
-;; Enable syntax checking, globally
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(defun get-ghes-releases ()
+  "Fetches the current releases of GHES.
 
-;; Disable menu-bar, tool-bar, and scroll-bar
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+Returns an list of alists whose car is a minor version of GHES and whose cdr is its latest patch version."
+  (with-current-buffer
+      (url-retrieve-synchronously "https://github-enterprise.s3.amazonaws.com/release/latest.json")
+    (goto-char url-http-end-of-headers)
+    (let ((json-key-type 'string))
+      (json-read))))
 
-;; Toggle-able line numbers
-(global-set-key (kbd "C-x t") 'linum-mode)
-(global-set-key (kbd "C-x T") 'global-linum-mode)
+(defun ghes-releases ()
+  "Shows the most recent minor version of each major version of GHES."
+  (interactive)
+  (with-output-to-temp-buffer "*GHES Releases*"
+      (temp-buffer-resize-mode)
+      (mapcar (lambda (version-alist)
+		(princ (format "%s: %s\n" (car version-alist) (cdr version-alist))))
+	      (get-ghes-releases))))
 
-;; Enable Ido, globally
-(defvar ido-enable-flex-matching)
-(defvar ido-everywhere)
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
+(setq osrs-shooting-stars-locations
+      '((0 . "Asgarnia")
+	(1 . "Karamja or Crandor")
+	(2 . "Feldip Hills or Isle of Souls")
+	(3 . "Fossil Island or Mos Le'Harmless")
+	(4 . "Fremnik Lands or Lunar Isle")
+	(5 . "Great Kourend")
+	(6 . "Kandarin")
+	(7 . "Kebos Lowlands")
+	(8 . "Kharidian Desert")
+	(9 . "Misthalin")
+	(10 . "Morytania")
+	(11 . "Piscatoris or the Gnome Stronghold")
+	(12 . "Tirannwn")
+	(13 . "Wilderness")
+	(14 . "Unknown")))
 
-;; Update default font to Source Code Pro and disable line spacing
-(if (eq system-type 'gnu/linux)
-    (set-face-attribute 'default nil :font "Source Code Pro-12")
-  )
-(add-to-list 'default-frame-alist
- 	     '(font . "Source Code Pro for Powerline-14"))
-(setq-default line-spacing 0)
+(defun osrs-get-shooting-stars ()
+  "Fetches the current known list of shooting stars in Old School RuneScape."
+  (let ((url-request-extra-headers
+	 '(("Authorization" . "global"))))
+    (with-current-buffer
+	(url-retrieve-synchronously "https://z9smj03u77.execute-api.us-east-1.amazonaws.com/stars")
+      (goto-char url-http-end-of-headers)
+      (let ((json-key-type 'string))
+	(json-read)))))
 
-;; Use GNU ls if on MacOS
-(defvar dired-use-ls-dired)
-(if (eq system-type 'darwin)
-    (setq dired-use-ls-dired t
-	  insert-directory-program "/usr/local/bin/gls"))
+(defun osrs-shooting-star-world (star_data)
+  "Returns the world a shooting star is on given a STAR_DATA object.
 
-(setq dired-listing-switches "-lah --group-directories-first")
+STAR_DATA is single object from the JSON array that is returned from a call to the `osrs-get-shooting-stars'
+function."
+  (cdr (car (cdr star_data))))
 
-;; Set the size of the frame
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(defun osrs-shooting-star-location (star_data)
+  "Returns the location a shooting star is on given a STAR_DATA object.
 
-;; Keybindings
-(global-set-key (kbd "C-x g") 'magit-status)
-(setq mac-command-modifier 'meta)
+STAR_DATA is a single object from the JSON arry that is returned from a call to the `osrs-get-shooting-stars'
+function."
+  (cdr (assq (cdr (car star_data)) osrs-shooting-stars-locations)))
 
-;; Enable dired-hide-details-mode minor mode in dired mode by default
-(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+(defun osrs-shooting-star-min-time (star_data)
+  "Returns the minimum time in minutes until a shooting star spawns given a STAR_DATA object.
 
-;; Enable normally disabled functions
+STAR_DATA is a single object from the JSON arry that is returned from a call to the `osrs-get-shooting-stars'
+function."
+  (/ (subtract-time
+      (cdr (car (cdr (cdr star_data))))
+      (time-convert (current-time) 'integer))
+     60))
+
+(defun osrs-shooting-star-max-time (star_data)
+  "Returns the maximum time in minutes until a shooting star spawns given a STAR_DATA object.
+
+STAR_DATA is a single object from the JSON arry that is returned from a call to the `osrs-get-shooting-stars'
+function."
+  ( / (subtract-time
+       (cdr (car (cdr (cdr (cdr star_data)))))
+       (time-convert (current-time) 'integer))
+      60))
+
+(defun osrs-shooting-stars (minutes)
+  "Opens a temporary buffer containing a list of worlds and locations of future shooting stars in Old School Runescape within the last MINUTES."
+  (interactive "p")
+  (with-output-to-temp-buffer "*OSRS Shooting Stars*"
+    (temp-buffer-resize-mode)
+    (message "Minutes: %d" minutes)
+    (mapcar (lambda (location)
+	      (let ((world (osrs-shooting-star-world location))
+		    (location (osrs-shooting-star-location location))
+		    (min-time (osrs-shooting-star-min-time location))
+		    (max-time (osrs-shooting-star-max-time location)))
+		(when (>= max-time (* -1 minutes))
+		  (princ (format "World %d: %s (%d minutes - %d minutes)\n"
+				 world
+				 location
+				 min-time
+				 max-time)))))
+	    (osrs-get-shooting-stars))))
+
+;; Begin graph related functions from chapter 15 of Emacs Lisp Intro
+(defvar graph-symbol "*"
+  "String used as symbol in graph, usually an asterisk.")
+
+(defvar graph-blank " "
+  "String used as blank in graph, usually a blank space.
+graph-blank must be the same number of columns wide
+as graph-symbol.")
+
+(defvar graph-max-height 20
+  "The maximum height a graph column should be.")
+
+(defun graph-body-print (numbers-list)
+  "Insert a body of a graph at point, whose column values are the contents of `NUMBERS-LIST'.
+
+The max value of a column should be scaled to is defined as `graph-max-height'.  The largest value
+of `NUMBERS-LIST' will be translated to that value, and all other values will be translated by the
+same amount to avoid overly large columns from displaying."
+  (let ((max-height (apply 'max numbers-list)))
+    (while numbers-list
+    ;; Draw column.
+      (insert-rectangle
+       (column-of-graph graph-max-height (translate-height max-height (car numbers-list))))
+
+    ;; Reposition point.
+      (forward-line (- graph-max-height))
+      (move-end-of-line nil)
+
+      ;; Shrink numbers-list.
+      (setq numbers-list (cdr numbers-list)))))
+
+(defun column-of-graph (max-graph-height actual-height)
+  "Returns a list of strings representation of a column of a graph of length `MAX-GRAPH-HEIGHT'.
+
+`ACTUAL-HEIGHT' is the number of graph-symbols that will appear in the column. Graph symbols are represented as the value
+of the variable `graph-symbol', and the empty filler spaces are represented as the value of `graph-blank'."
+  (let ((insert-list nil)
+	(number-of-top-blanks (- max-graph-height actual-height)))
+    ;; Fill in asterisks.
+    (while (> actual-height 0)
+      (setq insert-list (cons graph-symbol insert-list))
+      (setq actual-height (1- actual-height)))
+
+    ;; Fill in blanks.
+    (while (> number-of-top-blanks 0)
+      (setq insert-list (cons graph-blank insert-list))
+      (setq number-of-top-blanks (1- number-of-top-blanks)))
+
+    ;; Return whole list.
+    insert-list))
+
+(defun translate-height (max-height actual-height)
+  "Given an untranslated height of `ACTUAL-HEIGHT', scale it down to fit within the bounds of `graph-max-height'."
+  ;; If unset, default graph-max-height to 20.
+  (unless graph-max-height
+    (setq graph-max-height 20))
+  (truncate (* (/ (float graph-max-height) max-height) actual-height)))
+;; End graph related functions from chapter 15 of Emacs Lisp Intro
+
+;; TODO Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
+(defun cjonsmith-copy-filename-as-kill ()
+  "Adds the filename (including path) of the current buffer to the kill ring.
+
+If called with C-u, then only copy the name of the file."
+  (interactive)
+  (cond
+   ((equal current-prefix-arg nil)
+    (kill-new (buffer-file-name)))
+   ((equal current-prefix-arg '(4))
+    (kill-new (file-name-nondirectory (buffer-file-name))))))
+
+;; CAUTION: Be sure to reset this to the default value (10) if you're going to be making changes to a file remotely
+;; outside of TRAMP or another user has access to the same files and will make changes as well.
+(setq remote-file-name-inhibit-cache nil)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+(use-package project
+  :ensure project)
+
+(setq scroll-conservatively 1)
+
+(use-package dired
+  :config
+  (setq dired-dwim-target t))
+
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :config
+  (exec-path-from-shell-initialize))
+
+(use-package project
+  :ensure project
+  :after (exec-path-from-shell)
+  :config
+  (if (executable-find "rg")
+      (setq xref-search-program 'ripgrep)
+    (message "Executable: `ripgrep' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to speed-up xref")))
+
+(use-package winner
+  :config
+  (setq winner-mode 1))
+
+(use-package which-key
+  :config
+  (which-key-mode))
+
+(use-package org
+  :ensure org
+  :config
+  (progn
+    ;; Default all non-accounted for file-types to open in Emacs (I might regret this later)
+    (add-to-list 'org-file-apps '(t . emacs) t)
+    (setq org-image-actual-width nil)))
+
+(use-package sh-script
+  :config
+  (progn
+    (setq sh-basic-offset 2)
+    (add-hook 'sh-mode-hook
+              (lambda ()
+                (setq indent-tabs-mode nil)))))
+
+(use-package ruby-mode
+  :after lsp-mode)
+
+(use-package go-mode
+  :after lsp-mode)
+
+(use-package forge
+  :after magit
+  :init
+  (add-hook 'magit-status-sections-hook #'forge-insert-assigned-issues))
+
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-enable-snippet nil)
+  :hook
+  ((sh-mode . lsp)
+   (ruby-mode . lsp)
+   (go-mode . lsp)
+   (typescript-mode . lsp)
+   (lsp-mode . lsp-enable-which-key-integration)))
+
+(use-package terraform-mode)
+
+(when (not (eq system-type 'darwin))
+  (use-package company
+    :ensure company
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-deplay 0.0)
+    :hook
+    (sh-mode . company-mode))
+
+  (use-package company-shell
+    :after (company)
+    :config (add-to-list 'company-backends 'company-shell)))
+
+(use-package doc-view
+  :init
+  (setq doc-view-resolution 400))
+
+(use-package request
+  :ensure request)
+
+(use-package nov
+  :mode (".epub" . nov-mode)
+  :config
+  (progn
+    (defun my-nov-font-setup ()
+      (face-remap-add-relative 'variable-pitch
+			       :family "Cochin Regular"
+			       :height 1.5))
+    (add-hook 'nov-mode-hook 'my-nov-font-setup)))
+
+(use-package docker
+  :bind ("C-c d" . docker))
+
+(use-package yafolding
+  :hook
+  ((sh-mode . yafolding-mode))
+  :config
+  (defvar yafolding-mode-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map (kbd "<C-S-return>") #'yafolding-hide-parent-element)
+      (define-key map (kbd "<C-M-return>") #'yafolding-toggle-all)
+      (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
+      map)))
+
+(use-package orgit)
+
+(use-package eshell
+  :init
+  (setq eshell-visual-subcommands '(("docker" "load"))))
+
+(use-package graphviz-dot-mode
+  :ensure t
+  :config
+  (setq graphviz-dot-indent-width 4))
+
+(use-package codespaces
+  :config
+  (if (executable-find "gh")
+      (codespaces-setup)
+    (message "Executable: `gh' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use GitHub Codespaces."))
+  :bind ("C-c S" . #'codespaces-connect))
+
+;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
+;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
+;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
+;; this problem, since `brew' (or whatever package manager that's being used) will handle setting the `PATH' environment variable
+;; correctly (thus including it in the `exec-path' variable in Emacs) along with setting up the dictionaries for it as well.
+(if (executable-find "aspell")
+    (setq ispell-program-name "/usr/local/bin/aspell")
+  (message "Executable: `aspell' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use spellchecking."))
+
+;; Allow narrowing by default.
 (put 'narrow-to-region 'disabled nil)
 
-;; Enable some minor modes
-(which-key-mode t)
-(ido-vertical-mode t)
-
-;;; Projectile configuration
-(projectile-mode)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(setq projectile-switch-project-action 'projectile-dired)
-
-;; Add the directories specified in `directories' to `projectile-project-search-path'
-;; if they exist.
-(defvar projectile-project-search-path)
-(let ((directories '("~/github" "~/Software")))
-  (mapc (lambda (d)
-	  (when (file-exists-p d)
-	    (add-to-list 'projectile-project-search-path d t)))
-	directories))
-;;; End Projectile configuration.
-
-;;; exec-path-from-shell configuration
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-(when (daemonp)
-  (exec-path-from-shell-initialize))
-;;; End exec-path-from shell configuration
-
+;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(Info-isearch-search t)
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(backup-directory-alist '(("." . "~/.emacs.d/backups")))
- '(custom-enabled-themes '(atom-dark))
- '(custom-safe-themes
-   '("5b7c31eb904d50c470ce264318f41b3bbc85545e4359e6b7d48ee88a892b1915" "e6ff132edb1bfa0645e2ba032c44ce94a3bd3c15e3929cdf6c049802cf059a2a" "dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" default))
- '(dired-isearch-filenames t)
- '(frame-resize-pixelwise t)
- '(mini-frame-show-parameters '((left . 0.5) (top . 10) (width . 0.7)))
- '(next-screen-context-lines 10)
- '(org-startup-truncated nil)
+ '(cal-html-year-index-cols 4)
+ '(org-clock-sound t)
+ '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(atom-dark-theme nov exec-path-from-shell projectile-ripgrep projectile browse-at-remote doom-themes yasnippet ytdl smooth-scroll ido-vertical-mode mini-frame yaml-mode chess org-drill-table org-drill origami treemacs dracula-theme flycheck magit))
- '(what-cursor-show-names t))
+   '(codespaces terraform-mode graphviz-dot-mode orgit yafolding docker dockerfile-mode typescript-mode request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode forge flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async))
+ '(tramp-histfile-override nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(Info-quoted ((t (:inherit italic :foreground "#99CC99")))))
-;;; init.el ends here
+ )

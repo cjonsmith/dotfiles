@@ -5,7 +5,7 @@
 #/   bootstrap [-s|--skip-bin-dir]
 set -e
 
-skip_bin_dir=false
+skip_bin_dir=
 for i in "$@"; do
     case $i in
         -h|--help)
@@ -13,7 +13,7 @@ for i in "$@"; do
             exit 1
             ;;
         -s|--skip-bin-dir)
-            skip_bin_dir=true
+            skip_bin_dir=1
             shift
             ;;
         *)
@@ -78,6 +78,16 @@ done
 
 cd "$dotfiles_dir" && git submodule update --init
 
-[ $skip_bin_dir ] && {
+[ -e "$HOME/.emacs.d" ] && [ ! -f "$HOME/.emacs.d/chemacs.el" ] && {
+    echo "$HOME/.emacs.d exists and is not chemacs; backing it up."
+    mv "$HOME/.emacs.d" "$dotfiles_dir/overwrites/.emacs.d" || {
+	echo "  failed to backup old .emacs.d directory; it already is backed up in $dotfiles_dir/overwrites"
+	echo "  please intervene manually and rerun this script."
+    }
+}
+
+[ ! -e "$HOME/.emacs.d" ] && git clone "https://github.com/plexus/chemacs2.git" "$HOME/.emacs.d"
+
+[ "$skip_bin_dir" ] && {
     git clone git@github.com:cjonsmith/bin.git "$HOME/bin"
 }

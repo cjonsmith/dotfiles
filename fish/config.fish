@@ -1,5 +1,3 @@
-fish_vi_key_bindings
-
 if status --is-login
 	# Variables
 	set -gx NOTES_HOME $HOME/notes
@@ -19,7 +17,8 @@ if status --is-login
 		$ANDROID_HOME/emulator \
 		$ANDROID_HOME/tools \
 		$ANDROID_HOME/tools/bin \
-		$ANDROID_HOME/platform-tools
+		$ANDROID_HOME/platform-tools \
+		$HOME/Workspace/jit/bin
 
 	for location in $locations
 		if test -d $location
