@@ -19,8 +19,8 @@
 
 (require 'osrs-shooting-stars)
 (require 'ghes-releases)
-(load "files") ; Convert to requiring named features.
 (require 'graph)
+(require 'custom-files)
 ;; End custom library configuration.
 
 (load "~/.dotfiles/.emacs.d/newsticker-urls" t)

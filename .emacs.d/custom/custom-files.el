@@ -10,4 +10,4 @@ If called with C-u, then only copy the name of the file."
    ((equal current-prefix-arg '(4))
     (kill-new (file-name-nondirectory (buffer-file-name))))))
 
-(provide 'files)
+(provide 'custom-files)
