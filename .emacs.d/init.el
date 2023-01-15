@@ -12,6 +12,7 @@
 
 (load "~/.dotfiles/.emacs.d/newsticker-urls" t)
 
+(setq next-screen-context-lines 10)
 (setq frame-resize-pixelwise t)
 (setq save-interprogram-paste-before-kill t)
 
