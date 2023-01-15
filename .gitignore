@@ -14,3 +14,4 @@ mpd/log
 .emacs.d/*
 !.emacs.d/init.el
 !.emacs.d/snippets
+!.emacs.d/custom
