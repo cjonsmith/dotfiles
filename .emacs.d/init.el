@@ -20,6 +20,7 @@
 (require 'osrs-shooting-stars)
 (require 'ghes-releases)
 (load "graph") ; Convert to providing named features.
+(load "files") ; Convert to requiring named features.
 ;; End custom library configuration.
 
 (load "~/.dotfiles/.emacs.d/newsticker-urls" t)
@@ -36,18 +37,6 @@
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c f n") 'cjonsmith-copy-filename-as-kill)
-
-;; TODO Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
-(defun cjonsmith-copy-filename-as-kill ()
-  "Adds the filename (including path) of the current buffer to the kill ring.
-
-If called with C-u, then only copy the name of the file."
-  (interactive)
-  (cond
-   ((equal current-prefix-arg nil)
-    (kill-new (buffer-file-name)))
-   ((equal current-prefix-arg '(4))
-    (kill-new (file-name-nondirectory (buffer-file-name))))))
 
 ;; CAUTION: Be sure to reset this to the default value (10) if you're going to be making changes to a file remotely
 ;; outside of TRAMP or another user has access to the same files and will make changes as well.
