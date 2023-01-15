@@ -55,3 +55,5 @@ of the variable `graph-symbol', and the empty filler spaces are represented as t
   (unless graph-max-height
     (setq graph-max-height 20))
   (truncate (* (/ (float graph-max-height) max-height) actual-height)))
+
+(provide 'graph)
