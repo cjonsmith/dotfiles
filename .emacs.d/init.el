@@ -24,6 +24,10 @@
 ;; End custom library configuration.
 
 ;; Start saving, lock file, and backup configurations.
+(setq backup-directory-alist (let ((backup-dir-name (file-name-as-directory (concat user-emacs-directory "backups"))))
+			       (progn
+				 (files--ensure-directory backup-dir-name)
+				 `(("." . ,backup-dir-name)))))
 (setq lock-file-name-transforms (let ((lock-file-dir-name (file-name-as-directory (concat user-emacs-directory "lock-files"))))
 				  (progn
 				    (files--ensure-directory lock-file-dir-name)
