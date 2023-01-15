@@ -19,7 +19,7 @@
 
 (require 'osrs-shooting-stars)
 (require 'ghes-releases)
-(load "graph") ; Convert to providing named features.
+(load "graph") ; Convert to requiring named features.
 (load "files") ; Convert to requiring named features.
 ;; End custom library configuration.
 
