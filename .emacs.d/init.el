@@ -23,6 +23,13 @@
 (require 'custom-files)
 ;; End custom library configuration.
 
+;; Start saving, lock file, and backup configurations.
+(setq lock-file-name-transforms (let ((lock-file-dir-name (file-name-as-directory (concat user-emacs-directory "lock-files"))))
+				  (progn
+				    (files--ensure-directory lock-file-dir-name)
+				    `((".*" ,lock-file-dir-name t)))))
+;; End saving, lock file, and backup configurations.
+
 (load "~/.dotfiles/.emacs.d/newsticker-urls" t)
 
 (setq next-screen-context-lines 10)
