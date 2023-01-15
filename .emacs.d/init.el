@@ -28,6 +28,10 @@
 			       (progn
 				 (files--ensure-directory backup-dir-name)
 				 `(("." . ,backup-dir-name)))))
+(setq auto-save-file-name-transforms (let ((auto-save-dir-name (file-name-as-directory (concat user-emacs-directory "auto-saves"))))
+				       (progn
+					 (files--ensure-directory auto-save-dir-name)
+					 `((".*" ,auto-save-dir-name t)))))
 (setq lock-file-name-transforms (let ((lock-file-dir-name (file-name-as-directory (concat user-emacs-directory "lock-files"))))
 				  (progn
 				    (files--ensure-directory lock-file-dir-name)
