@@ -24,18 +24,12 @@
 ;; End custom library configuration.
 
 ;; Start saving, lock file, and backup configurations.
-(setq backup-directory-alist (let ((backup-dir-name (file-name-as-directory (concat user-emacs-directory "backups"))))
-			       (progn
-				 (files--ensure-directory backup-dir-name)
-				 `(("." . ,backup-dir-name)))))
-(setq auto-save-file-name-transforms (let ((auto-save-dir-name (file-name-as-directory (concat user-emacs-directory "auto-saves"))))
-				       (progn
-					 (files--ensure-directory auto-save-dir-name)
-					 `((".*" ,auto-save-dir-name t)))))
-(setq lock-file-name-transforms (let ((lock-file-dir-name (file-name-as-directory (concat user-emacs-directory "lock-files"))))
-				  (progn
-				    (files--ensure-directory lock-file-dir-name)
-				    `((".*" ,lock-file-dir-name t)))))
+(setq backup-directory-alist (let ((backup-dir-name (cjonsmith/dir-in-emacs-home "backups" nil t)))
+			       `(("." . ,backup-dir-name))))
+(setq auto-save-file-name-transforms (let ((auto-save-dir-name (cjonsmith/dir-in-emacs-home "auto-saves" nil t)))
+				       `((".*" ,auto-save-dir-name t))))
+(setq lock-file-name-transforms (let ((lock-file-dir-name (cjonsmith/dir-in-emacs-home "lock-files" nil t)))
+				  `((".*" ,lock-file-dir-name t))))
 ;; End saving, lock file, and backup configurations.
 
 (load "~/.dotfiles/.emacs.d/newsticker-urls" t)
