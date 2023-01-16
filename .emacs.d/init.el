@@ -15,7 +15,7 @@
 (defvar custom-library-dir (concat user-emacs-directory "custom")
   "Location of where to load custom/personal libraries from.")
 
-(push (directory-file-name custom-library-dir) load-path)
+(add-to-list 'load-path (directory-file-name custom-library-dir))
 
 (require 'osrs-shooting-stars)
 (require 'ghes-releases)
