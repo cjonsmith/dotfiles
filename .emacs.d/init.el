@@ -51,7 +51,7 @@
   (tool-bar-mode 0))
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-c f n") 'cjonsmith-copy-filename-as-kill)
+(global-set-key (kbd "C-c f n") 'cjonsmith/copy-filename-as-kill)
 
 ;; CAUTION: Be sure to reset this to the default value (10) if you're going to be making changes to a file remotely
 ;; outside of TRAMP or another user has access to the same files and will make changes as well.
