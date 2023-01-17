@@ -207,6 +207,11 @@
 ;; Allow narrowing by default.
 (put 'narrow-to-region 'disabled nil)
 
+;; Start latest version specific requirements.
+(unless (version< emacs-version "28.1")
+  (repeat-mode))
+;; End latest version specific requirements.
+
 ;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
