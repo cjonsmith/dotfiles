@@ -1,5 +1,5 @@
-;; TODO Add a function to open `user-emacs-directory' with dired with prefix arg to open `init.el' at same path directly.
-;; TODO Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
+;; TODO: Add a function to open `user-emacs-directory' with dired with prefix arg to open `init.el' at same path directly.
+;; TODO: Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
 (defun cjonsmith/copy-filename-as-kill ()
   "Adds the filename (including path) of the current buffer to the kill ring.
 

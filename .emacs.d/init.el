@@ -188,6 +188,13 @@
     (message "Executable: `gh' was not found in `exec-path'.  Ensure that it is installed on your system if you wish to use GitHub Codespaces."))
   :bind ("C-c S" . #'codespaces-connect))
 
+(use-package elisp-mode
+  :config
+  (add-hook 'emacs-lisp-mode-hook
+	    (lambda ()
+	      (font-lock-add-keywords nil
+				      '(("\\<\\(TODO\\|FIXME\\):" 1 font-lock-warning-face t))))))
+
 ;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
 ;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
 ;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
