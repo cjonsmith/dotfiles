@@ -195,6 +195,10 @@
 	      (font-lock-add-keywords nil
 				      '(("\\<\\(TODO\\|FIXME\\):" 1 font-lock-warning-face t))))))
 
+(use-package files
+  :config
+  (setq confirm-kill-emacs 'yes-or-no-p))
+
 ;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
 ;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
 ;; different dictionaries along side the binary.  Switching to using `aspell' seems to be the quickest/least manual way of solving
