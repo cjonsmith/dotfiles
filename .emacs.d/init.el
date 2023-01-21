@@ -113,11 +113,6 @@
 (use-package go-mode
   :after lsp-mode)
 
-(use-package forge
-  :after magit
-  :init
-  (add-hook 'magit-status-sections-hook #'forge-insert-assigned-issues))
-
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
@@ -231,7 +226,7 @@
  '(org-clock-sound t)
  '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(codespaces terraform-mode graphviz-dot-mode orgit yafolding docker dockerfile-mode typescript-mode request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode forge flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async))
+   '(codespaces terraform-mode graphviz-dot-mode orgit yafolding docker dockerfile-mode typescript-mode request company-shell company project use-package yasnippet yaml-mode which-key wgrep smooth-scroll projectile-ripgrep origami nov mini-frame lsp-mode ido-vertical-mode go-mode flycheck fish-mode exec-path-from-shell dumb-jump dracula-theme chess buffer-move browse-at-remote atom-dark-theme async))
  '(tramp-histfile-override nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
