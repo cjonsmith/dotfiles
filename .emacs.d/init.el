@@ -18,6 +18,7 @@
 (load "~/.dotfiles/.emacs.d/newsticker-urls" t)
 
 (setq next-screen-context-lines 10)
+(setq scroll-conservatively 1)
 (setq frame-resize-pixelwise t)
 (setq save-interprogram-paste-before-kill t)
 
@@ -64,8 +65,6 @@
 
 (use-package project
   :ensure project)
-
-(setq scroll-conservatively 1)
 
 (use-package dired
   :config
