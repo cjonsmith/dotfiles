@@ -15,23 +15,6 @@
 (defvar custom-library-dir (concat user-emacs-directory "custom")
   "Location of where to load custom/personal libraries from.")
 
-(add-to-list 'load-path (directory-file-name custom-library-dir))
-
-(require 'osrs-shooting-stars)
-(require 'ghes-releases)
-(require 'graph)
-(require 'custom-files)
-;; End custom library configuration.
-
-;; Start saving, lock file, and backup configurations.
-(setq backup-directory-alist (let ((backup-dir-name (cjonsmith/dir-in-emacs-home "backups" nil t)))
-			       `(("." . ,backup-dir-name))))
-(setq auto-save-file-name-transforms (let ((auto-save-dir-name (cjonsmith/dir-in-emacs-home "auto-saves" nil t)))
-				       `((".*" ,auto-save-dir-name t))))
-(setq lock-file-name-transforms (let ((lock-file-dir-name (cjonsmith/dir-in-emacs-home "lock-files" nil t)))
-				  `((".*" ,lock-file-dir-name t))))
-;; End saving, lock file, and backup configurations.
-
 (load "~/.dotfiles/.emacs.d/newsticker-urls" t)
 
 (setq next-screen-context-lines 10)
@@ -44,9 +27,6 @@
 (when (eq system-type 'gnu/linux)
   (tool-bar-mode 0))
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-c f n") 'cjonsmith/copy-filename-as-kill)
-
 ;; CAUTION: Be sure to reset this to the default value (10) if you're going to be making changes to a file remotely
 ;; outside of TRAMP or another user has access to the same files and will make changes as well.
 (setq remote-file-name-inhibit-cache nil)
@@ -56,6 +36,31 @@
   (package-install 'use-package))
 
 (require 'use-package)
+
+(use-package custom-files
+  :init (add-to-list 'load-path (directory-file-name custom-library-dir))
+  :config
+  (global-set-key (kbd "C-c f n") 'cjonsmith/copy-filename-as-kill))
+
+(use-package osrs-shooting-stars
+  :init (add-to-list 'load-path (directory-file-name custom-library-dir)))
+
+(use-package graph
+  :init (add-to-list 'load-path (directory-file-name custom-library-dir)))
+
+(use-package files
+  :after (custom-files)
+  :config
+  (setq backup-directory-alist (let ((backup-dir-name (cjonsmith/dir-in-emacs-home "backups" nil t)))
+				 `(("." . ,backup-dir-name))))
+  (setq auto-save-file-name-transforms (let ((auto-save-dir-name (cjonsmith/dir-in-emacs-home "auto-saves" nil t)))
+					 `((".*" ,auto-save-dir-name t))))
+  (setq lock-file-name-transforms (let ((lock-file-dir-name (cjonsmith/dir-in-emacs-home "lock-files" nil t)))
+				    `((".*" ,lock-file-dir-name t)))))
+
+(use-package ibuffer
+  :config (global-set-key (kbd "C-x C-b") 'ibuffer))
+
 (use-package project
   :ensure project)
 
