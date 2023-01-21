@@ -58,7 +58,8 @@
   (setq auto-save-file-name-transforms (let ((auto-save-dir-name (cjonsmith/dir-in-emacs-home "auto-saves" nil t)))
 					 `((".*" ,auto-save-dir-name t))))
   (setq lock-file-name-transforms (let ((lock-file-dir-name (cjonsmith/dir-in-emacs-home "lock-files" nil t)))
-				    `((".*" ,lock-file-dir-name t)))))
+				    `((".*" ,lock-file-dir-name t))))
+  (setq confirm-kill-emacs 'yes-or-no-p))
 
 (use-package ibuffer
   :config (global-set-key (kbd "C-x C-b") 'ibuffer))
@@ -194,10 +195,6 @@
 	    (lambda ()
 	      (font-lock-add-keywords nil
 				      '(("\\<\\(TODO\\|FIXME\\):" 1 font-lock-warning-face t))))))
-
-(use-package files
-  :config
-  (setq confirm-kill-emacs 'yes-or-no-p))
 
 ;; In my experience, MacOS lacks any system default libraries that `hunspell' (the default spellchecker that comes with MacOS) can
 ;; access.  This may be a little heavy-handed to solve that problem, but by installing `aspell' it will also include several
