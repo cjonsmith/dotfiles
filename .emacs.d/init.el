@@ -42,7 +42,8 @@
   :init (add-to-list 'load-path (directory-file-name custom-library-dir))
   :config
   (global-set-key (kbd "C-c f n") 'cjonsmith/copy-filename-as-kill)
-  (global-set-key (kbd "C-c f e") 'cjonsmith/open-user-emacs-directory))
+  (global-set-key (kbd "C-c f e") 'cjonsmith/open-user-emacs-directory)
+  (global-set-key (kbd "C-c f s") 'cjonsmith/open-screenshots-directory))
 
 (use-package osrs-shooting-stars
   :init (add-to-list 'load-path (directory-file-name custom-library-dir)))

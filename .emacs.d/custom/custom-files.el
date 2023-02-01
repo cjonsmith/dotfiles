@@ -1,3 +1,12 @@
+(defcustom screenshot-dir
+  (cond
+   ((eq system-type 'darwin) "~/Pictures/Screenshots")
+   (t ""))
+  "Path to current user's screenshots directory.
+
+On MacOS, defaults to \"~/Pictures/Screenshots\".  On all other systems it defaults to an empty string."
+  :type '(string))
+
 ;; TODO: Add a function to copy the path of the current buffer's file (and optionally line number) to kill-ring.
 (defun cjonsmith/copy-filename-as-kill ()
   "Adds the filename (including path) of the current buffer to the kill ring.
@@ -37,5 +46,18 @@ If called interactively, the presence of a prefix argument is equivalent to sett
   (if open-init
       (find-file (locate-user-emacs-file "init.el"))
     (dired user-emacs-directory)))
+
+(defun cjonsmith/open-screenshots-directory (dir)
+  "Opens dired at `screenshot-dir' in current window, or DIR for directory if OVERRIDE is non-nil.
+
+If `screenshot-dir' is unset, then this function will use the value of DIR for a path (prompting for it if called interactively), set that as the value for `screenshot-dir', then open the directory.  If a prefix arg is specified, then the user will be prompted for a directory regardless of if `screenshot-dir' is specified, but will not overwrite the contents of the variable."
+  (interactive
+   (list (when (or current-prefix-arg (string-empty-p screenshot-dir))
+	   (read-directory-name "Path to screenshot directory: "))))
+  (when (string-empty-p screenshot-dir)
+    (setq screenshot-dir dir))
+  (cond
+   (dir (dired dir))
+   (t (dired screenshot-dir))))
 
 (provide 'custom-files)
