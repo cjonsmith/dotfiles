@@ -29,8 +29,6 @@ CREATE are non-nil values, EXISTS takes precedence (i.e. the directory will not 
      (t
       dir-in-emacs-home))))
 
-(provide 'custom-files)
-
 (defun cjonsmith/open-user-emacs-directory (open-init)
   "Opens dired at `user-emacs-directory' in current window.  Opens `init.el' at that directory if OPEN-INIT is non-nil.
 
@@ -39,3 +37,5 @@ If called interactively, the presence of a prefix argument is equivalent to sett
   (if open-init
       (find-file (locate-user-emacs-file "init.el"))
     (dired user-emacs-directory)))
+
+(provide 'custom-files)
