@@ -99,7 +99,8 @@
   (progn
     ;; Default all non-accounted for file-types to open in Emacs (I might regret this later)
     (add-to-list 'org-file-apps '(t . emacs) t)
-    (setq org-image-actual-width nil)))
+    (setq org-image-actual-width nil)
+    (visual-line-mode)))
 
 (use-package sh-script
   :config
