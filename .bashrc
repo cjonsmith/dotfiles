@@ -22,12 +22,17 @@ export HISTIGNORE="[ ]*:&:bg:fg"
     EXCLUDED_FILES=( ! -name ps1 )
 }
 
+bash_config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/bash"
+
+if [ -d "$bash_config_dir" ]; then
 while IFS= read -r config_file; do
     # shellcheck source=/dev/null
     source "$config_file"
-done< <(find -H "${XDG_CONFIG_HOME:-$HOME/.config}/bash" -type f "${EXCLUDED_FILES[@]}" -print)
+    done< <(find -H "$bash_config_dir" -type f "${EXCLUDED_FILES[@]}" -print)
 
-touch "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bash_hidden && source "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bash_hidden
+    # shellcheck source=/dev/null
+    touch "$bash_config_dir"/bash_hidden && source "$bash_config_dir"/bash_hidden
+fi
 
 # shellcheck source=/dev/null
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
