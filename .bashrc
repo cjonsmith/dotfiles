@@ -23,16 +23,19 @@ export HISTIGNORE="[ ]*:&:bg:fg"
 }
 
 while IFS= read -r config_file; do
+    # shellcheck source=/dev/null
     source "$config_file"
 done< <(find -H "${XDG_CONFIG_HOME:-$HOME/.config}/bash" -type f "${EXCLUDED_FILES[@]}" -print)
 
 touch "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bash_hidden && source "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bash_hidden
 
+# shellcheck source=/dev/null
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export NVM_DIR="$HOME/.nvm"
 if [ -d "$NVM_DIR" ]; then
+    # shellcheck source=/dev/null
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    # shellcheck source=/dev/null
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
-
