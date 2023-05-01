@@ -27,14 +27,18 @@ dotfiles_dir="$(cd "$(dirname "$0")/.." && pwd)"
 overwrites="$dotfiles_dir/overwrites"
 [ ! -d "$overwrites" ] && mkdir "$overwrites"
 
+log() {
+    echo "$@" | tee -a "$dotfiles_dir/bootstrap.log"
+}
+
 perform_safe_link() {
     local src=$1 dest=$2
     if [ -e "$dest" ]; then
         if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-            echo "  $dest is already symlinked to $src; skipping."
+            log "  $dest is already symlinked to $src; skipping."
             return
         else
-            echo "  $dest already exists; moving to $overwrites for manual cleanup."
+            log "  $dest already exists; moving to $overwrites for manual cleanup."
             if [ -d "$dest" ]; then
                 mv "$dest" "$overwrites/$(basename "$dest")" || {
                     rm -r "${overwrites/$(basename "$dest"):?}"
@@ -54,18 +58,18 @@ for dotfile in $(find "$dotfiles_dir" -mindepth 1 -maxdepth 1 ! -path '*.git*' !
     dotfile_basename="$(basename "$dotfile")"
     if [[ "$dotfile_basename" =~ ^\. ]]; then
         if [ "$dotfile_basename" = ".emacs.d" ]; then
-            echo ".emacs.d is a special case; symlinking as .handrolled-emacs in $HOME"
+            log ".emacs.d is a special case; symlinking as .handrolled-emacs in $HOME"
             dest="$HOME/.handrolled-emacs"
         else
-            echo "$dotfile is a hidden file; symlinking to $HOME"
+            log "$dotfile is a hidden file; symlinking to $HOME"
             dest="$HOME/$dotfile_basename"
         fi
     elif [ -d "$dotfile" ]; then
         config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
-        echo "$dotfile is a non-hidden directory; symlinking to $config_home"
+        log "$dotfile is a non-hidden directory; symlinking to $config_home"
         dest="$config_home/$dotfile_basename"
     else
-        echo "$dotfile is a non-hidden regular file and is too ambiguous to determine where to place it."
+        log "$dotfile is a non-hidden regular file and is too ambiguous to determine where to place it."
         continue
     fi
 
@@ -73,16 +77,16 @@ for dotfile in $(find "$dotfiles_dir" -mindepth 1 -maxdepth 1 ! -path '*.git*' !
 done
 
 [ "$(ls -A "$overwrites")" ] && {
-    echo "Files were overwritten during bootstrapping; originals can be found in $overwrites"
+    log "Files were overwritten during bootstrapping; originals can be found in $overwrites"
 }
 
 cd "$dotfiles_dir" && git submodule update --init
 
 [ -e "$HOME/.emacs.d" ] && [ ! -f "$HOME/.emacs.d/chemacs.el" ] && {
-    echo "$HOME/.emacs.d exists and is not chemacs; backing it up."
+    log "$HOME/.emacs.d exists and is not chemacs; backing it up."
     mv "$HOME/.emacs.d" "$dotfiles_dir/overwrites/.emacs.d" || {
-	echo "  failed to backup old .emacs.d directory; it already is backed up in $dotfiles_dir/overwrites"
-	echo "  please intervene manually and rerun this script."
+	log "  failed to backup old .emacs.d directory; it already is backed up in $dotfiles_dir/overwrites"
+	log "  please intervene manually and rerun this script."
     }
 }
 
