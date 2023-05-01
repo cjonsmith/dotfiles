@@ -26,12 +26,12 @@ while IFS= read -r config_file; do
     source "$config_file"
 done< <(find -H "${XDG_CONFIG_HOME:-$HOME/.config}/bash" -type f "${EXCLUDED_FILES[@]}" -print)
 
-touch ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden && source ${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_hidden
+touch "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bash_hidden && source "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bash_hidden
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export NVM_DIR="$HOME/.nvm"
-if [ -d $NVM_DIR ]; then
+if [ -d "$NVM_DIR" ]; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
