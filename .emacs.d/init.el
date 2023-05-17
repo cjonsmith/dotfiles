@@ -180,7 +180,8 @@
 
 (use-package eshell
   :init
-  (setq eshell-visual-subcommands '(("docker" "load"))))
+  (setq eshell-visual-subcommands '(("docker" "load")
+				    ("gh" "codespace" "delete"))))
 
 (use-package graphviz-dot-mode
   :ensure t
