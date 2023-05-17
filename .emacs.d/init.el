@@ -100,7 +100,10 @@
     ;; Default all non-accounted for file-types to open in Emacs (I might regret this later)
     (add-to-list 'org-file-apps '(t . emacs) t)
     (setq org-image-actual-width nil)
-    (visual-line-mode)))
+    (visual-line-mode)
+    (global-set-key (kbd "C-c o l") #'org-store-link)
+    (global-set-key (kbd "C-c o a") #'org-agenda)
+    (global-set-key (kbd "C-c o c") #'org-capture))
 
 (use-package sh-script
   :config
