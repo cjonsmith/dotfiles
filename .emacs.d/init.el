@@ -202,6 +202,10 @@
 	      (font-lock-add-keywords nil
 				      '(("\\<\\(TODO\\|FIXME\\):" 1 font-lock-warning-face t))))))
 
+(use-package org-roam
+  :config
+  (org-roam-db-autosync-mode))
+
 (unless (member system-type '(ms-dos windows-nt))
   (use-package vterm))
 
