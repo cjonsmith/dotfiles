@@ -4,10 +4,6 @@ filetype on
 filetype plugin on
 syntax on
 
-" Setup pathogen
-runtime bundle/pathogen/autoload/pathogen.vim
-call pathogen#infect()
-
 " -- Display
 set title           " Update the title of the window
 set relativenumber  " Display relative line numbers
@@ -47,44 +43,8 @@ set backspace=indent,eol,start
 " Hide backup file instead of abandoning
 set hidden
 
-" Use light version of Solarized if using GUI
-if has ('gui_running')
-	set background=dark
-	colorscheme solarized
-endif
-
-" Fonts
-if has ('gui_macvim')
-	set guifont=Monaco:h13
-else
-	set guifont=DejaVu\ Sans\ Mono\ 11
-endif
-
-set rtp+=/usr/local/opt/fzf
-
-command! -nargs=1 Silent
-\	execute 'silent !' . <q-args>
-\ | execute 'redraw!'
-
 " -- Remaps/bindings
 nnoremap \ :nohls<Enter> " Turn off highlight after search with \
 let mapleader = " "
 nnoremap <SPACE> <Nop>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>rg :Rg<CR>
-nnoremap <Leader>sb :ls<CR>:sb<Space>
-nnoremap <Leader>vsb :ls<CR>:vert sb<Space>
-nnoremap <Leader>l :RainbowLevelsToggle<CR>
-nnoremap <Leader>a :ALEToggle<CR>
 nnoremap <Leader>vrc :e ~/.vimrc<CR>
-nnoremap <Leader>oor :call system("remote " . expand("%"))<CR>
-vnoremap <Leader>oor :<C-u>call system("remote --start-line " . expand(getpos("'<")[1]) . " --end-line " . expand(getpos("'>")[1]) . " " . expand("%"))<CR>
-
-" From https://www.reddit.com/r/vim/comments/i50pce/how_to_show_commit_that_introduced_current_line/
-nmap <silent><Leader>g :call setbufvar(winbufnr(popup_atcursor(split(system("git log -n 1 -L " . line(".") . ",+1:" . expand("%:p")), "\n"), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
-map <C-n> :NERDTreeToggle<CR>
-
-" Start NERDTree automatically if opening a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
