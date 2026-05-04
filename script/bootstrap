@@ -57,13 +57,8 @@ perform_safe_link() {
 for dotfile in $(find "$dotfiles_dir" -mindepth 1 -maxdepth 1 ! -path '*.git*' ! -path "*$(dirname "$0")" ! -path "*$(basename "$overwrites")"); do
     dotfile_basename="$(basename "$dotfile")"
     if [[ "$dotfile_basename" =~ ^\. ]]; then
-        if [ "$dotfile_basename" = ".emacs.d" ]; then
-            log ".emacs.d is a special case; symlinking as .handrolled-emacs in $HOME"
-            dest="$HOME/.handrolled-emacs"
-        else
-            log "$dotfile is a hidden file; symlinking to $HOME"
-            dest="$HOME/$dotfile_basename"
-        fi
+        log "$dotfile is a hidden file; symlinking to $HOME"
+        dest="$HOME/$dotfile_basename"
     elif [ -d "$dotfile" ]; then
         config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
         log "$dotfile is a non-hidden directory; symlinking to $config_home"
@@ -81,16 +76,6 @@ done
 }
 
 cd "$dotfiles_dir" && git submodule update --init
-
-[ -e "$HOME/.emacs.d" ] && [ ! -f "$HOME/.emacs.d/chemacs.el" ] && {
-    log "$HOME/.emacs.d exists and is not chemacs; backing it up."
-    mv "$HOME/.emacs.d" "$dotfiles_dir/overwrites/.emacs.d" || {
-	log "  failed to backup old .emacs.d directory; it already is backed up in $dotfiles_dir/overwrites"
-	log "  please intervene manually and rerun this script."
-    }
-}
-
-perform_safe_link "$dotfiles_dir/vendor/chemacs2" "$HOME/.emacs.d"
 
 [ ! -d "$HOME/.oh-my-zsh" ] && {
     log "Installing Oh My Zsh..."

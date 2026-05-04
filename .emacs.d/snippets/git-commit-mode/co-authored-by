@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Co-authored-by
-# key: coab
-# --
-Co-authored-by: ${1:$$(when yas-moving-away-p (progn (setq co-author-handle yas-text) (co-author-name yas-text)))} <${2:$$(message co-author-handle)}@${3:github.com}>
