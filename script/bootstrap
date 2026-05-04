@@ -90,13 +90,13 @@ cd "$dotfiles_dir" && git submodule update --init
     }
 }
 
-[ ! -e "$HOME/.emacs.d" ] && git clone "https://github.com/plexus/chemacs2.git" "$HOME/.emacs.d"
+perform_safe_link "$dotfiles_dir/vendor/chemacs2" "$HOME/.emacs.d"
 
 [ ! -d "$HOME/.oh-my-zsh" ] && {
     log "Installing Oh My Zsh..."
-    git clone "https://github.com/ohmyzsh/ohmyzsh.git" "$HOME/.oh-my-zsh"
+    perform_safe_link "$dotfiles_dir/vendor/ohmyzsh" "$HOME/.oh-my-zsh"
 }
 
 [ "$skip_bin_dir" ] && {
-    git clone git@github.com:cjonsmith/bin.git "$HOME/bin"
+    perform_safe_link "$dotfiles_dir/vendor/bin" "$HOME/bin"
 }

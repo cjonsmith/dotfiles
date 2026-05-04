@@ -43,3 +43,12 @@
 [submodule ".vim/bundle/fzf.vim"]
 	path = .vim/bundle/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule "vendor/chemacs2"]
+	path = vendor/chemacs2
+	url = https://github.com/plexus/chemacs2.git
+[submodule "vendor/ohmyzsh"]
+	path = vendor/ohmyzsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "vendor/bin"]
+	path = vendor/bin
+	url = git@github.com:cjonsmith/bin.git
